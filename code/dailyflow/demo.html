@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DailyFlow - 工作日报助手</title>
+  <style>
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, "Microsoft YaHei", "Segoe UI", sans-serif;
+      background: #F8F9FC;
+      color: #111827;
+      min-height: 100vh;
+    }
+
+    /* ========== 顶部导航栏 ========== */
+    .top-bar {
+      background: #FFFFFF;
+      height: 56px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #3B82F6;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      color: #6B7280;
+      margin-left: 4px;
+    }
+
+    .top-bar-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 280px;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 0 14px 0 36px;
+      font-size: 13px;
+      color: #111827;
+      background: #F8F9FC;
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .search-input::placeholder {
+      color: #9CA3AF;
+    }
+
+    .search-input:focus {
+      background: #FFFFFF;
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #9CA3AF;
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .template-btn {
+      height: 36px;
+      padding: 0 14px;
+      background: #FFFFFF;
+      color: #374151;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .template-btn:hover {
+      background: #F3F4F6;
+      border-color: #D1D5DB;
+    }
+
+    .date-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .date-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #E5E7EB;
+      background: #FFFFFF;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #374151;
+      transition: all 0.15s;
+    }
+
+    .date-btn:hover {
+      background: #F3F4F6;
+      border-color: #D1D5DB;
+    }
+
+    .date-display {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .date-weekday {
+      font-size: 12px;
+      color: #6B7280;
+      font-weight: 400;
+    }
+
+    /* ========== 主内容区 ========== */
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      gap: 24px;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ========== 左侧：日历导航 ========== */
+    .calendar-section {
+      width: 290px;
+      min-width: 290px;
+    }
+
+    .calendar-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 28px 28px 24px;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .calendar-month {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .calendar-nav-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: #F3F4F6;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #374151;
+      transition: all 0.15s;
+    }
+
+    .calendar-nav-btn:hover {
+      background: #E5E7EB;
+    }
+
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+      margin-bottom: 8px;
+    }
+
+    .calendar-weekday {
+      font-size: 11px;
+      color: #9CA3AF;
+      text-align: center;
+      padding: 0;
+      font-weight: 400;
+    }
+
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px 0;
+    }
+
+    .calendar-day-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 0;
+    }
+
+    .calendar-day-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .calendar-day-circle:hover {
+      background: #F3F4F6;
+    }
+
+    .calendar-day-num {
+      font-size: 11px;
+      color: #6B7280;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    /* 有记录的日期：蓝底白字 + 表情 */
+    .calendar-day-circle.has-record {
+      background: #3B82F6;
+    }
+
+    .calendar-day-circle.has-record .day-emoji {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .calendar-day-wrapper.has-record .calendar-day-num {
+      color: #3B82F6;
+      font-weight: 600;
+    }
+
+    /* 今天 */
+    .calendar-day-circle.today {
+      background: #3B82F6;
+    }
+
+    .calendar-day-circle.today .day-emoji {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .calendar-day-wrapper.today .calendar-day-num {
+      color: #3B82F6;
+      font-weight: 600;
+    }
+
+    /* 其他月份 */
+    .calendar-day-num.other-month {
+      color: #D1D5DB;
+    }
+
+    /* ========== 中间：待办列表 ========== */
+    .todo-section {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid #F3F4F6;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title .icon {
+      font-size: 18px;
+    }
+
+    .todo-count {
+      font-size: 12px;
+      color: #6B7280;
+      background: #F3F4F6;
+      padding: 2px 10px;
+      border-radius: 12px;
+    }
+
+    /* ========== 待办卡片 ========== */
+    .todo-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      padding: 4px 0;
+      margin-bottom: 16px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      transition: background 0.15s;
+      border-radius: 8px;
+      margin: 4px 8px;
+    }
+
+    .todo-item:hover {
+      background: #F8F9FC;
+    }
+
+    .todo-item:hover .todo-delete {
+      opacity: 1;
+    }
+
+    /* 复选框 */
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border: 2px solid #D1D5DB;
+      border-radius: 4px;
+      margin-top: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .checkbox:hover {
+      border-color: #3B82F6;
+    }
+
+    .checkbox.checked {
+      background: #3B82F6;
+      border-color: #3B82F6;
+    }
+
+    .checkbox.checked::after {
+      content: "✓";
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* 待办内容 */
+    .todo-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .todo-text {
+      font-size: 14px;
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    .todo-item.completed .todo-text {
+      text-decoration: line-through;
+      color: #9CA3AF;
+    }
+
+    .todo-note {
+      font-size: 12px;
+      color: #6B7280;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .todo-note .note-icon {
+      font-size: 12px;
+    }
+
+    .todo-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .todo-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .tag-project {
+      background: #EFF6FF;
+      color: #3B82F6;
+    }
+
+    .tag-urgent {
+      background: #FEF2F2;
+      color: #EF4444;
+    }
+
+    .tag-important {
+      background: #FFF7ED;
+      color: #F59E0B;
+    }
+
+    .tag-normal {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+
+    /* 操作按钮 */
+    .todo-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .todo-item:hover .todo-actions {
+      opacity: 1;
+    }
+
+    .todo-action-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #9CA3AF;
+      transition: all 0.15s;
+    }
+
+    .todo-action-btn:hover {
+      background: #F3F4F6;
+      color: #374151;
+    }
+
+    .todo-action-btn.delete:hover {
+      background: #FEF2F2;
+      color: #EF4444;
+    }
+
+    /* ========== 添加待办 ========== */
+    .add-todo {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .add-input {
+      flex: 1;
+      height: 40px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 14px;
+      color: #111827;
+      background: #FFFFFF;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .add-input::placeholder {
+      color: #9CA3AF;
+    }
+
+    .add-input:focus {
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .add-btn {
+      height: 40px;
+      padding: 0 20px;
+      background: #3B82F6;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .add-btn:hover {
+      background: #2563EB;
+    }
+
+    /* ========== 右侧：侧边栏 ========== */
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 快捷操作卡片 */
+    .action-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      padding: 20px;
+    }
+
+    .action-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      height: 44px;
+      background: #3B82F6;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary:hover {
+      background: #2563EB;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      height: 40px;
+      background: #FFFFFF;
+      color: #374151;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover {
+      background: #F3F4F6;
+      border-color: #D1D5DB;
+    }
+
+    /* 时间轴 */
+    .timeline-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      padding: 20px;
+    }
+
+    .timeline-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 24px;
+      bottom: -12px;
+      width: 2px;
+      background: #E5E7EB;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-dot {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 1;
+    }
+
+    .timeline-dot.add {
+      background: #EFF6FF;
+    }
+
+    .timeline-dot.complete {
+      background: #ECFDF5;
+    }
+
+    .timeline-dot.edit {
+      background: #FFF7ED;
+    }
+
+    .timeline-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .timeline-text {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .timeline-time {
+      font-size: 11px;
+      color: #9CA3AF;
+      margin-top: 2px;
+    }
+
+    /* 本周概览 */
+    .week-stats-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      padding: 20px;
+    }
+
+    .week-stats-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .week-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 80px;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .week-bar-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .week-bar {
+      width: 100%;
+      background: #E5E7EB;
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      min-height: 4px;
+    }
+
+    .week-bar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #3B82F6;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s ease;
+    }
+
+    .week-bar-label {
+      font-size: 11px;
+      color: #6B7280;
+    }
+
+    .week-summary {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid #F3F4F6;
+    }
+
+    .week-summary-item {
+      text-align: center;
+    }
+
+    .week-summary-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .week-summary-label {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 2px;
+    }
+
+    /* 统计卡片 */
+    .stats-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      padding: 20px;
+    }
+
+    .stats-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .stats-label {
+      font-size: 12px;
+      color: #6B7280;
+    }
+
+    .stats-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .stats-value .unit {
+      font-size: 14px;
+      font-weight: 400;
+      color: #6B7280;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #F3F4F6;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #10B981;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: #6B7280;
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    /* ========== 日报预览弹窗 ========== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      width: 560px;
+      max-width: 90vw;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 0;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      color: #6B7280;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .modal-close:hover {
+      background: #F3F4F6;
+      color: #111827;
+    }
+
+    .modal-body {
+      padding: 16px 24px;
+    }
+
+    .report-preview {
+      background: #F8F9FC;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #111827;
+      white-space: pre-wrap;
+      min-height: 120px;
+    }
+
+    .modal-footer {
+      padding: 0 24px 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .modal-btn {
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .modal-btn.primary {
+      background: #3B82F6;
+      color: #FFFFFF;
+      border: none;
+    }
+
+    .modal-btn.primary:hover {
+      background: #2563EB;
+    }
+
+    .modal-btn.secondary {
+      background: #FFFFFF;
+      color: #374151;
+      border: 1px solid #E5E7EB;
+    }
+
+    .modal-btn.secondary:hover {
+      background: #F3F4F6;
+    }
+
+    /* ========== Demo 标注 ========== */
+    .demo-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #111827;
+      color: #FFFFFF;
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .demo-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: #10B981;
+      border-radius: 50%;
+    }
+
+    /* ========== 分割线 ========== */
+    .divider {
+      height: 1px;
+      background: #E5E7EB;
+      margin: 4px 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== 顶部导航栏 ===== -->
+  <header class="top-bar">
+    <div class="logo">
+      <div class="logo-icon">D</div>
+      <span class="logo-text">DailyFlow</span>
+      <span class="logo-sub">工作日报助手</span>
+    </div>
+
+    <div class="top-bar-center">
+      <div class="date-nav">
+        <button class="date-btn">◀</button>
+        <div class="date-display">
+          2026年6月16日 <span class="date-weekday">周一</span>
+        </div>
+        <button class="date-btn">▶</button>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" placeholder="搜索待办事项...">
+      </div>
+    </div>
+
+    <div class="top-bar-right">
+      <button class="template-btn">⚡ 快捷模板</button>
+    </div>
+  </header>
+
+  <!-- ===== 主内容区 ===== -->
+  <main class="main-container">
+
+    <!-- 左侧：日历导航 -->
+    <aside class="calendar-section">
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button class="calendar-nav-btn">◀</button>
+          <span class="calendar-month">June 2026</span>
+          <button class="calendar-nav-btn">▶</button>
+        </div>
+        <div class="calendar-weekdays">
+          <span class="calendar-weekday">Mon</span>
+          <span class="calendar-weekday">Tue</span>
+          <span class="calendar-weekday">Wed</span>
+          <span class="calendar-weekday">Thu</span>
+          <span class="calendar-weekday">Fri</span>
+          <span class="calendar-weekday">Sat</span>
+          <span class="calendar-weekday">Sun</span>
+        </div>
+        <div class="calendar-days">
+          <!-- 第一行：6月1日是周一 -->
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">1</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">2</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">3</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">4</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">5</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">6</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">7</span>
+          </div>
+          <!-- 第二行 -->
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">8</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">9</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">10</span>
+          </div>
+          <div class="calendar-day-wrapper has-record">
+            <div class="calendar-day-circle has-record"><span class="day-emoji">😊</span></div>
+            <span class="calendar-day-num">11</span>
+          </div>
+          <div class="calendar-day-wrapper has-record">
+            <div class="calendar-day-circle has-record"><span class="day-emoji">😄</span></div>
+            <span class="calendar-day-num">12</span>
+          </div>
+          <div class="calendar-day-wrapper has-record">
+            <div class="calendar-day-circle has-record"><span class="day-emoji">😌</span></div>
+            <span class="calendar-day-num">13</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">14</span>
+          </div>
+          <!-- 第三行 -->
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">15</span>
+          </div>
+          <div class="calendar-day-wrapper today">
+            <div class="calendar-day-circle today"><span class="day-emoji">😊</span></div>
+            <span class="calendar-day-num">16</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">17</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">18</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">19</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">20</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">21</span>
+          </div>
+          <!-- 第四行 -->
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">22</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">23</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">24</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">25</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">26</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">27</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">28</span>
+          </div>
+          <!-- 第五行 -->
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">29</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num">30</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num other-month">1</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num other-month">2</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num other-month">3</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num other-month">4</span>
+          </div>
+          <div class="calendar-day-wrapper">
+            <div class="calendar-day-circle"></div>
+            <span class="calendar-day-num other-month">5</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 中间：待办列表 -->
+    <section class="todo-section">
+      <div class="todo-card">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="icon">📋</span> 今日待办
+          </div>
+          <span class="todo-count">已完成 2 / 共 5</span>
+        </div>
+        <!-- 已完成项 -->
+        <div class="todo-item completed">
+          <div class="checkbox checked"></div>
+          <div class="todo-content">
+            <div class="todo-text">获嘉名仕官邸5号楼样板间su模型优化</div>
+            <div class="todo-meta">
+              <span class="todo-tag tag-project">获嘉名仕</span>
+              <span class="todo-tag tag-urgent">紧急</span>
+            </div>
+            <div class="todo-note">
+              <span class="note-icon">📝</span>
+              已完成模型调整，导出三版方案
+            </div>
+          </div>
+          <div class="todo-actions">
+            <button class="todo-action-btn" title="备注">📝</button>
+            <button class="todo-action-btn delete" title="删除">✕</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="todo-item completed">
+          <div class="checkbox checked"></div>
+          <div class="todo-content">
+            <div class="todo-text">样板间效果图文本制作，对接甲方</div>
+            <div class="todo-meta">
+              <span class="todo-tag tag-project">获嘉名仕</span>
+              <span class="todo-tag tag-important">重要</span>
+            </div>
+            <div class="todo-note">
+              <span class="note-icon">📝</span>
+              甲方已确认方案A，待出施工图
+            </div>
+          </div>
+          <div class="todo-actions">
+            <button class="todo-action-btn" title="备注">📝</button>
+            <button class="todo-action-btn delete" title="删除">✕</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 未完成项 -->
+        <div class="todo-item">
+          <div class="checkbox"></div>
+          <div class="todo-content">
+            <div class="todo-text">3号楼公共区域方案深化</div>
+            <div class="todo-meta">
+              <span class="todo-tag tag-project">3号楼</span>
+              <span class="todo-tag tag-important">重要</span>
+            </div>
+          </div>
+          <div class="todo-actions">
+            <button class="todo-action-btn" title="备注">📝</button>
+            <button class="todo-action-btn delete" title="删除">✕</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="todo-item">
+          <div class="checkbox"></div>
+          <div class="todo-content">
+            <div class="todo-text">与暖通专业对接吊顶内设备点位</div>
+            <div class="todo-meta">
+              <span class="todo-tag tag-project">3号楼</span>
+              <span class="todo-tag tag-normal">普通</span>
+            </div>
+          </div>
+          <div class="todo-actions">
+            <button class="todo-action-btn" title="备注">📝</button>
+            <button class="todo-action-btn delete" title="删除">✕</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="todo-item">
+          <div class="checkbox"></div>
+          <div class="todo-content">
+            <div class="todo-text">整理本周材料选型清单</div>
+            <div class="todo-meta">
+              <span class="todo-tag tag-project">日常</span>
+              <span class="todo-tag tag-normal">普通</span>
+            </div>
+          </div>
+          <div class="todo-actions">
+            <button class="todo-action-btn" title="备注">📝</button>
+            <button class="todo-action-btn delete" title="删除">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 添加待办 -->
+      <div class="add-todo">
+        <input class="add-input" type="text" placeholder="添加新的待办事项...">
+        <button class="add-btn">＋ 添加</button>
+      </div>
+    </section>
+
+    <!-- 右侧：侧边栏 -->
+    <aside class="sidebar">
+
+      <!-- 快捷操作 -->
+      <div class="action-card">
+        <div class="action-card-title">
+          <span>⚡</span> 快捷操作
+        </div>
+        <button class="btn-primary">📄 生成日报</button>
+        <button class="btn-secondary">💾 数据备份</button>
+      </div>
+
+      <!-- 今日统计 -->
+      <div class="stats-card">
+        <div class="stats-title">
+          <span>📊</span> 今日统计
+        </div>
+        <div class="stats-row">
+          <span class="stats-label">完成进度</span>
+          <span class="stats-value">2 <span class="unit">/ 5</span></span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 40%;"></div>
+        </div>
+        <div class="progress-text">40%</div>
+      </div>
+
+      <!-- 本周概览 -->
+      <div class="week-stats-card">
+        <div class="week-stats-title">
+          <span>📈</span> 本周概览
+        </div>
+        <div class="week-chart">
+          <div class="week-bar-wrapper">
+            <div class="week-bar" style="height: 60px;">
+              <div class="week-bar-fill" style="height: 100%;"></div>
+            </div>
+            <span class="week-bar-label">周一</span>
+          </div>
+          <div class="week-bar-wrapper">
+            <div class="week-bar" style="height: 60px;">
+              <div class="week-bar-fill" style="height: 80%;"></div>
+            </div>
+            <span class="week-bar-label">周二</span>
+          </div>
+          <div class="week-bar-wrapper">
+            <div class="week-bar" style="height: 60px;">
+              <div class="week-bar-fill" style="height: 60%;"></div>
+            </div>
+            <span class="week-bar-label">周三</span>
+          </div>
+          <div class="week-bar-wrapper">
+            <div class="week-bar" style="height: 60px;">
+              <div class="week-bar-fill" style="height: 90%;"></div>
+            </div>
+            <span class="week-bar-label">周四</span>
+          </div>
+          <div class="week-bar-wrapper">
+            <div class="week-bar" style="height: 60px;">
+              <div class="week-bar-fill" style="height: 40%;"></div>
+            </div>
+            <span class="week-bar-label">周五</span>
+          </div>
+        </div>
+        <div class="week-summary">
+          <div class="week-summary-item">
+            <div class="week-summary-value">18</div>
+            <div class="week-summary-label">本周完成</div>
+          </div>
+          <div class="week-summary-item">
+            <div class="week-summary-value">72%</div>
+            <div class="week-summary-label">完成率</div>
+          </div>
+          <div class="week-summary-item">
+            <div class="week-summary-value">3</div>
+            <div class="week-summary-label">项目数</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 工作时间轴 -->
+      <div class="timeline-card">
+        <div class="timeline-title">
+          <span>🕐</span> 工作时间轴
+        </div>
+        <div class="timeline-list">
+          <div class="timeline-item">
+            <div class="timeline-dot add">➕</div>
+            <div class="timeline-info">
+              <div class="timeline-text">添加待办「整理本周材料选型清单」</div>
+              <div class="timeline-time">09:15</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot complete">✓</div>
+            <div class="timeline-info">
+              <div class="timeline-text">完成「获嘉名仕5号楼su模型优化」</div>
+              <div class="timeline-time">10:30</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot edit">✏️</div>
+            <div class="timeline-info">
+              <div class="timeline-text">备注「样板间效果图」：甲方已确认方案A</div>
+              <div class="timeline-time">14:20</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot complete">✓</div>
+            <div class="timeline-info">
+              <div class="timeline-text">完成「样板间效果图文本制作」</div>
+              <div class="timeline-time">16:45</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- ===== 日报预览弹窗（静态展示） ===== -->
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📄</span> 日报预览
+        </div>
+        <button class="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="report-preview">6月16日工作日报：
+1.获嘉名仕官邸5号楼样板间su模型优化。
+2.样板间效果图文本制作，对接甲方。</div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary">关闭</button>
+        <button class="modal-btn primary">📋 复制到剪贴板</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo 标识 -->
+  <div class="demo-badge">
+    <span class="dot"></span>
+    Demo 预览 · 仅展示 UI，无实际功能
+  </div>
+
+</body>
+</html>
