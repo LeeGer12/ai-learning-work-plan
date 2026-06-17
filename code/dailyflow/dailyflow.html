@@ -100,6 +100,39 @@
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
 
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      color: #9CA3AF;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .search-clear:hover {
+      background: #E5E7EB;
+      color: #374151;
+    }
+
+    .search-clear.visible {
+      display: flex;
+    }
+
+    .search-highlight {
+      background: #FEF08A;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
     .search-icon {
       position: absolute;
       left: 12px;
@@ -254,6 +287,7 @@
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 6px 0;
+      caret-color: transparent;
     }
 
     .calendar-day-wrapper {
@@ -357,6 +391,29 @@
       border-radius: 12px;
     }
 
+    .section-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sort-btn {
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      background: #FFFFFF;
+      font-size: 11px;
+      color: #6B7280;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .sort-btn:hover {
+      border-color: #3B82F6;
+      color: #3B82F6;
+    }
+
     /* ========== 待办卡片 ========== */
     .todo-card {
       background: #FFFFFF;
@@ -369,7 +426,7 @@
     .todo-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 8px;
       padding: 12px 16px;
       transition: background 0.15s;
       border-radius: 8px;
@@ -382,6 +439,40 @@
 
     .todo-item:hover .todo-delete {
       opacity: 1;
+    }
+
+    .todo-item:hover .drag-handle {
+      opacity: 1;
+    }
+
+    .todo-item.dragging {
+      opacity: 0.4;
+      background: #EFF6FF;
+    }
+
+    .todo-item.drag-over {
+      border-top: 2px solid #3B82F6;
+    }
+
+    /* 拖拽手柄 */
+    .drag-handle {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      color: #D1D5DB;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      margin-top: 1px;
+      user-select: none;
+    }
+
+    .drag-handle:active {
+      cursor: grabbing;
     }
 
     /* 复选框 */
@@ -520,8 +611,14 @@
     /* ========== 添加待办 ========== */
     .add-todo {
       display: flex;
+      flex-direction: column;
       gap: 8px;
       margin-top: 4px;
+    }
+
+    .add-todo-main {
+      display: flex;
+      gap: 8px;
     }
 
     .add-input {
@@ -565,6 +662,109 @@
 
     .add-btn:hover {
       background: #2563EB;
+    }
+
+    .add-todo-options {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .option-select {
+      height: 32px;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 12px;
+      color: #374151;
+      background: #FFFFFF;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .option-select:focus {
+      border-color: #3B82F6;
+    }
+
+    .option-label {
+      font-size: 12px;
+      color: #9CA3AF;
+    }
+
+    .manage-projects-btn {
+      height: 32px;
+      padding: 0 10px;
+      border: 1px dashed #D1D5DB;
+      border-radius: 6px;
+      background: transparent;
+      font-size: 12px;
+      color: #6B7280;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-left: auto;
+    }
+
+    .manage-projects-btn:hover {
+      border-color: #3B82F6;
+      color: #3B82F6;
+    }
+
+    /* 快捷模板 */
+    .template-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .template-chip {
+      height: 30px;
+      padding: 0 12px;
+      border: 1px solid #E5E7EB;
+      border-radius: 15px;
+      background: #FFFFFF;
+      font-size: 12px;
+      color: #374151;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .template-chip:hover {
+      border-color: #3B82F6;
+      color: #3B82F6;
+      background: #EFF6FF;
+    }
+
+    .template-chip .chip-delete {
+      font-size: 14px;
+      color: #9CA3AF;
+      margin-left: 2px;
+      line-height: 1;
+    }
+
+    .template-chip .chip-delete:hover {
+      color: #EF4444;
+    }
+
+    .manage-templates-btn {
+      height: 30px;
+      padding: 0 10px;
+      border: 1px dashed #D1D5DB;
+      border-radius: 15px;
+      background: transparent;
+      font-size: 12px;
+      color: #6B7280;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .manage-templates-btn:hover {
+      border-color: #3B82F6;
+      color: #3B82F6;
     }
 
     /* ========== 右侧：侧边栏 ========== */
@@ -721,6 +921,45 @@
       font-size: 11px;
       color: #9CA3AF;
       margin-top: 2px;
+    }
+
+    .timeline-delete {
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      color: #9CA3AF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .timeline-item:hover .timeline-delete {
+      opacity: 1;
+    }
+
+    .timeline-delete:hover {
+      background: #FEF2F2;
+      color: #EF4444;
+    }
+
+    .timeline-toggle {
+      text-align: center;
+      font-size: 12px;
+      color: #3B82F6;
+      cursor: pointer;
+      padding: 8px 0 0;
+      user-select: none;
+    }
+
+    .timeline-toggle:hover {
+      text-decoration: underline;
     }
 
     /* 本周概览 */
@@ -946,6 +1185,20 @@
       color: #111827;
       white-space: pre-wrap;
       min-height: 120px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .report-preview:focus {
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: #FFFFFF;
+    }
+
+    .report-hint {
+      font-size: 12px;
+      color: #9CA3AF;
+      margin-top: 8px;
     }
 
     .modal-footer {
@@ -986,6 +1239,233 @@
 
     .modal-btn.secondary:hover {
       background: #F3F4F6;
+    }
+
+    /* ========== 项目管理弹窗 ========== */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .project-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #F8F9FC;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .project-item:hover {
+      background: #EFF6FF;
+    }
+
+    .project-item-name {
+      font-size: 14px;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-item-name .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3B82F6;
+    }
+
+    .project-item-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .project-item-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #9CA3AF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .project-item-btn:hover {
+      background: #E5E7EB;
+      color: #374151;
+    }
+
+    .project-item-btn.delete:hover {
+      background: #FEF2F2;
+      color: #EF4444;
+    }
+
+    .project-add-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    .project-add-input {
+      flex: 1;
+      height: 36px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .project-add-input:focus {
+      border-color: #3B82F6;
+    }
+
+    .project-add-btn {
+      height: 36px;
+      padding: 0 16px;
+      background: #3B82F6;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .project-add-btn:hover {
+      background: #2563EB;
+    }
+
+    /* 模板管理弹窗 */
+    .template-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .template-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #F8F9FC;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .template-item:hover {
+      background: #EFF6FF;
+    }
+
+    .template-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .template-item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .template-item-text {
+      font-size: 12px;
+      color: #6B7280;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .template-item-actions {
+      display: flex;
+      gap: 4px;
+      margin-left: 8px;
+    }
+
+    .template-add-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    .template-add-input {
+      flex: 1;
+      min-width: 120px;
+      height: 36px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .template-add-input:focus {
+      border-color: #3B82F6;
+    }
+
+    .template-add-btn {
+      height: 36px;
+      padding: 0 16px;
+      background: #3B82F6;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .template-add-btn:hover {
+      background: #2563EB;
+    }
+
+    /* ========== 备注编辑弹窗 ========== */
+    .note-textarea {
+      width: 100%;
+      min-height: 100px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      color: #111827;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .note-textarea:focus {
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .note-hint {
+      font-size: 12px;
+      color: #9CA3AF;
+      margin-top: 8px;
     }
 
     /* ========== 空状态 ========== */
@@ -1052,6 +1532,7 @@
       <div class="search-box">
         <span class="search-icon">🔍</span>
         <input class="search-input" type="text" placeholder="搜索待办事项..." id="searchInput">
+        <button class="search-clear" id="searchClear">✕</button>
       </div>
     </div>
 
@@ -1093,7 +1574,10 @@
           <div class="section-title">
             <span class="icon">📋</span> 今日待办
           </div>
-          <span class="todo-count" id="todoCount">已完成 0 / 共 0</span>
+          <div class="section-actions">
+            <button class="sort-btn" id="sortBtn" title="按优先级排序">↕ 排序</button>
+            <span class="todo-count" id="todoCount">已完成 0 / 共 0</span>
+          </div>
         </div>
         <div id="todoList">
           <!-- 待办列表由JS填充 -->
@@ -1102,8 +1586,26 @@
 
       <!-- 添加待办 -->
       <div class="add-todo">
-        <input class="add-input" type="text" placeholder="添加新的待办事项..." id="addInput">
-        <button class="add-btn" id="addBtn">＋ 添加</button>
+        <div class="add-todo-main">
+          <input class="add-input" type="text" placeholder="添加新的待办事项..." id="addInput">
+          <button class="add-btn" id="addBtn">＋ 添加</button>
+        </div>
+        <div class="add-todo-options">
+          <span class="option-label">项目：</span>
+          <select class="option-select" id="projectSelect">
+            <option value="">无</option>
+          </select>
+          <span class="option-label" style="margin-left: 8px;">优先级：</span>
+          <select class="option-select" id="prioritySelect">
+            <option value="normal">普通</option>
+            <option value="important">重要</option>
+            <option value="urgent">紧急</option>
+          </select>
+          <button class="manage-projects-btn" id="manageProjectsBtn">⚙ 管理项目</button>
+        </div>
+        <div class="template-bar" id="templateBar">
+          <!-- 模板chips由JS填充 -->
+        </div>
       </div>
     </section>
 
@@ -1116,7 +1618,9 @@
           <span>⚡</span> 快捷操作
         </div>
         <button class="btn-primary" id="generateReport">📄 生成日报</button>
-        <button class="btn-secondary" id="exportData">💾 数据备份</button>
+        <button class="btn-secondary" id="exportData">💾 导出备份</button>
+        <button class="btn-secondary" id="importData" style="margin-top: 8px;">📂 导入恢复</button>
+        <input type="file" id="importFile" accept=".json" style="display: none;">
       </div>
 
       <!-- 今日统计 -->
@@ -1182,10 +1686,74 @@
       </div>
       <div class="modal-body">
         <div class="report-preview" id="reportContent"></div>
+        <div class="report-hint">💡 点击内容可直接编辑，复制的是修改后的版本</div>
       </div>
       <div class="modal-footer">
         <button class="modal-btn secondary" id="closeReport">关闭</button>
         <button class="modal-btn primary" id="copyReport">📋 复制到剪贴板</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 项目管理弹窗 ===== -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📁</span> 项目管理
+        </div>
+        <button class="modal-close" id="closeProjectModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="project-list" id="projectList">
+          <!-- 项目列表由JS填充 -->
+        </div>
+        <div class="project-add-row">
+          <input class="project-add-input" type="text" placeholder="输入新项目名称..." id="newProjectInput">
+          <button class="project-add-btn" id="addProjectBtn">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 备注编辑弹窗 ===== -->
+  <div class="modal-overlay" id="noteModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📝</span> 编辑备注
+        </div>
+        <button class="modal-close" id="closeNoteModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <textarea class="note-textarea" id="noteTextarea" placeholder="输入备注内容..."></textarea>
+        <div class="note-hint">清空内容并保存即可删除备注</div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" id="deleteNote">🗑️ 删除备注</button>
+        <button class="modal-btn primary" id="saveNote">💾 保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 模板管理弹窗 ===== -->
+  <div class="modal-overlay" id="templateModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>⚡</span> 管理模板
+        </div>
+        <button class="modal-close" id="closeTemplateModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="template-list" id="templateList">
+          <!-- 模板列表由JS填充 -->
+        </div>
+        <div class="template-add-row">
+          <input class="template-add-input" type="text" placeholder="模板名称（如：方案汇报）" id="newTemplateName">
+          <input class="template-add-input" type="text" placeholder="待办内容" id="newTemplateText">
+          <button class="template-add-btn" id="addTemplateBtn">添加</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1389,12 +1957,59 @@
       return data.projects;
     }
 
+    // 获取模板列表
+    function getTemplates() {
+      const data = loadData();
+      return data.templates || [];
+    }
+
+    // 保存模板列表
+    function saveTemplates(templates) {
+      const data = loadData();
+      data.templates = templates;
+      saveData(data);
+    }
+
+    // 添加模板
+    function addTemplate(name, text) {
+      const templates = getTemplates();
+      templates.push({ id: generateId(), name, text });
+      saveTemplates(templates);
+    }
+
+    // 删除模板
+    function deleteTemplate(id) {
+      const templates = getTemplates().filter(t => t.id !== id);
+      saveTemplates(templates);
+    }
+
     console.log('DailyFlow localStorage封装已加载');
 
     // ========== 1.4 待办添加功能 ==========
 
     // 当前日期状态
     let currentDate = new Date();
+
+    // 优先级排序权重
+    const PRIORITY_ORDER = { urgent: 0, important: 1, normal: 2 };
+
+    // 按优先级排序（手动触发）
+    function sortTodosByPriority() {
+      const dateStr = formatDate(currentDate);
+      const data = loadData();
+      const todos = data.todos[dateStr];
+      if (!todos || todos.length === 0) return;
+
+      todos.sort((a, b) => {
+        if (a.completed !== b.completed) return a.completed ? 1 : -1;
+        return (PRIORITY_ORDER[a.priority] ?? 2) - (PRIORITY_ORDER[b.priority] ?? 2);
+      });
+
+      data.todos[dateStr] = todos;
+      saveData(data);
+      renderTodoList();
+      showToast('已按优先级排序');
+    }
 
     // 渲染待办列表
     function renderTodoList() {
@@ -1408,8 +2023,14 @@
       const completed = todos.filter(t => t.completed).length;
       todoCount.textContent = `已完成 ${completed} / 共 ${total}`;
 
+      // 保持存储顺序，已完成项移到底部
+      const sortedTodos = [...todos].sort((a, b) => {
+        if (a.completed !== b.completed) return a.completed ? 1 : -1;
+        return 0;
+      });
+
       // 渲染列表
-      if (todos.length === 0) {
+      if (sortedTodos.length === 0) {
         todoList.innerHTML = `
           <div class="empty-state">
             <div class="empty-icon">📝</div>
@@ -1419,8 +2040,9 @@
         return;
       }
 
-      todoList.innerHTML = todos.map(todo => `
-        <div class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}">
+      todoList.innerHTML = sortedTodos.map(todo => `
+        <div class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}" draggable="true">
+          <div class="drag-handle" title="拖拽排序">⠿</div>
           <div class="checkbox ${todo.completed ? 'checked' : ''}" data-id="${todo.id}"></div>
           <div class="todo-content">
             <div class="todo-text">${escapeHtml(todo.text)}</div>
@@ -1478,12 +2100,17 @@
         return;
       }
 
+      const project = document.getElementById('projectSelect').value;
+      const priority = document.getElementById('prioritySelect').value;
       const dateStr = formatDate(currentDate);
-      addTodo(dateStr, text, '', 'normal');
+
+      addTodo(dateStr, text, project, priority);
 
       input.value = '';
       renderTodoList();
       renderTimeline();
+      renderCalendar();
+      renderWeekStats();
       showToast('待办已添加');
     }
 
@@ -1512,6 +2139,9 @@
 
       // 按钮添加
       addBtn.addEventListener('click', handleAddTodo);
+
+      // 排序按钮
+      document.getElementById('sortBtn').addEventListener('click', sortTodosByPriority);
     }
 
     console.log('DailyFlow 待办添加功能已加载');
@@ -1532,6 +2162,7 @@
           toggleTodo(dateStr, todoId);
           renderTodoList();
           renderTimeline();
+          renderWeekStats();
         }
       });
     }
@@ -1565,6 +2196,7 @@
       deleteTodo(dateStr, todoId);
       renderTodoList();
       renderTimeline();
+      renderWeekStats();
       showToast('待办已删除');
     }
 
@@ -1581,6 +2213,7 @@
     // 切换到前一天
     function goToPrevDay() {
       currentDate.setDate(currentDate.getDate() - 1);
+      timelineExpanded = false;
       updateDateDisplay();
       renderTodoList();
       renderTimeline();
@@ -1589,6 +2222,7 @@
     // 切换到后一天
     function goToNextDay() {
       currentDate.setDate(currentDate.getDate() + 1);
+      timelineExpanded = false;
       updateDateDisplay();
       renderTodoList();
       renderTimeline();
@@ -1601,6 +2235,9 @@
     }
 
     // 渲染时间轴
+    const TIMELINE_DEFAULT_COUNT = 5;
+    let timelineExpanded = false;
+
     function renderTimeline() {
       const dateStr = formatDate(currentDate);
       const events = getTimelineByDate(dateStr);
@@ -1617,8 +2254,9 @@
 
       // 按时间倒序显示
       const sortedEvents = [...events].reverse();
+      const showEvents = timelineExpanded ? sortedEvents : sortedEvents.slice(0, TIMELINE_DEFAULT_COUNT);
 
-      timelineList.innerHTML = sortedEvents.map(event => {
+      let html = showEvents.map(event => {
         const time = new Date(event.timestamp);
         const timeStr = `${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}`;
 
@@ -1642,24 +2280,36 @@
               <div class="timeline-text">${escapeHtml(event.description)}</div>
               <div class="timeline-time">${timeStr}</div>
             </div>
+            <button class="timeline-delete" data-id="${event.id}" title="删除记录">✕</button>
           </div>
         `;
       }).join('');
+
+      // 超出默认数量时显示展开/收起按钮
+      if (sortedEvents.length > TIMELINE_DEFAULT_COUNT) {
+        const label = timelineExpanded
+          ? '收起'
+          : `查看更多（${sortedEvents.length - TIMELINE_DEFAULT_COUNT}条）`;
+        html += `<div class="timeline-toggle" onclick="toggleTimeline()">${label}</div>`;
+      }
+
+      timelineList.innerHTML = html;
     }
 
-    // 初始化应用
-    function initApp() {
-      updateDateDisplay();
-      renderTodoList();
+    function toggleTimeline() {
+      timelineExpanded = !timelineExpanded;
       renderTimeline();
-      initAddTodoEvents();
-      initTodoListEvents();
-      initDeleteEvents();
-      initDateNavEvents();
     }
 
-    // 页面加载完成后初始化
-    document.addEventListener('DOMContentLoaded', initApp);
+    function deleteTimelineEvent(dateStr, eventId) {
+      const data = loadData();
+      if (!data.timeline[dateStr]) return;
+      data.timeline[dateStr] = data.timeline[dateStr].filter(e => e.id !== eventId);
+      saveData(data);
+    }
+
+    // 页面加载完成后初始化（initApp在后续阶段中逐步完善）
+    document.addEventListener('DOMContentLoaded', () => initApp());
 
     console.log('DailyFlow 日期切换功能已加载');
 
@@ -1846,29 +2496,12 @@
         }
 
         // 更新显示
+        timelineExpanded = false;
         updateDateDisplay();
         renderCalendar();
         renderTodoList();
         renderTimeline();
       });
-    }
-
-    // 更新initApp函数
-    function initApp() {
-      // 同步日历月份
-      calendarMonth = currentDate.getMonth();
-      calendarYear = currentDate.getFullYear();
-
-      updateDateDisplay();
-      renderCalendar();
-      renderTodoList();
-      renderTimeline();
-      initAddTodoEvents();
-      initTodoListEvents();
-      initDeleteEvents();
-      initDateNavEvents();
-      initCalendarNavEvents();
-      initCalendarClickEvents();
     }
 
     console.log('DailyFlow 日期点击跳转已加载');
@@ -1912,12 +2545,16 @@
       const modal = document.getElementById('reportModal');
       const content = document.getElementById('reportContent');
       content.textContent = report;
+      content.contentEditable = 'true';
       modal.classList.add('active');
     }
 
     // 关闭日报预览弹窗
     function closeReportModal() {
       const modal = document.getElementById('reportModal');
+      const content = document.getElementById('reportContent');
+      content.blur();
+      content.contentEditable = 'false';
       modal.classList.remove('active');
     }
 
@@ -1993,16 +2630,733 @@
       document.getElementById('copyReport').addEventListener('click', copyReport);
     }
 
-    // 更新initApp函数
+    console.log('DailyFlow 复制功能已加载');
+
+    // ========== 阶段四：项目标签与优先级 ==========
+
+    // 4.1 项目选择器 - 渲染项目下拉选项
+    function renderProjectSelect() {
+      const select = document.getElementById('projectSelect');
+      const projects = getProjects();
+      const currentVal = select.value;
+
+      select.innerHTML = '<option value="">无</option>' +
+        projects.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+
+      // 恢复之前选中的值
+      if (projects.includes(currentVal)) {
+        select.value = currentVal;
+      }
+    }
+
+    console.log('DailyFlow 项目选择器已加载');
+
+    // 4.3 优先级选择器 - HTML已内置，无需额外JS
+    // 4.5 优先级排序 - 已集成到 renderTodoList 中
+
+    // 4.6 项目管理 - 添加/删除项目
+    function addProject(name) {
+      const trimmed = name.trim();
+      if (!trimmed) return false;
+
+      const data = loadData();
+      if (data.projects.includes(trimmed)) {
+        showToast('该项目已存在');
+        return false;
+      }
+      data.projects.push(trimmed);
+      saveData(data);
+      renderProjectSelect();
+      renderProjectList();
+      showToast('项目已添加');
+      return true;
+    }
+
+    function deleteProject(name) {
+      const data = loadData();
+      const index = data.projects.indexOf(name);
+      if (index > -1) {
+        data.projects.splice(index, 1);
+        saveData(data);
+        renderProjectSelect();
+        renderProjectList();
+        showToast('项目已删除');
+      }
+    }
+
+    // 渲染项目管理列表
+    function renderProjectList() {
+      const projects = getProjects();
+      const listEl = document.getElementById('projectList');
+
+      if (projects.length === 0) {
+        listEl.innerHTML = '<div class="empty-state" style="padding: 20px 0;"><div class="empty-text">暂无项目，请添加</div></div>';
+        return;
+      }
+
+      listEl.innerHTML = projects.map(p => `
+        <div class="project-item">
+          <div class="project-item-name">
+            <span class="dot"></span>
+            ${escapeHtml(p)}
+          </div>
+          <div class="project-item-actions">
+            <button class="project-item-btn delete" title="删除" data-project="${escapeHtml(p)}">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 显示/关闭项目管理弹窗
+    function showProjectModal() {
+      renderProjectList();
+      document.getElementById('projectModal').classList.add('active');
+    }
+
+    function closeProjectModalFn() {
+      document.getElementById('projectModal').classList.remove('active');
+    }
+
+    // 初始化项目管理事件
+    function initProjectEvents() {
+      // 管理项目按钮
+      document.getElementById('manageProjectsBtn').addEventListener('click', showProjectModal);
+
+      // 关闭弹窗
+      document.getElementById('closeProjectModal').addEventListener('click', closeProjectModalFn);
+      document.getElementById('projectModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeProjectModalFn();
+      });
+
+      // 添加项目
+      document.getElementById('addProjectBtn').addEventListener('click', () => {
+        const input = document.getElementById('newProjectInput');
+        if (addProject(input.value)) {
+          input.value = '';
+        }
+      });
+
+      document.getElementById('newProjectInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const input = document.getElementById('newProjectInput');
+          if (addProject(input.value)) {
+            input.value = '';
+          }
+        }
+      });
+
+      // 删除项目（事件委托）
+      document.getElementById('projectList').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-project]');
+        if (btn && btn.classList.contains('delete')) {
+          const name = btn.dataset.project;
+          if (confirm(`确定删除项目「${name}」吗？`)) {
+            deleteProject(name);
+          }
+        }
+      });
+    }
+
+    console.log('DailyFlow 项目管理已加载');
+
+    // ========== 阶段五：工作备注 ==========
+
+    // 当前编辑备注的待办ID
+    let currentNoteTodoId = null;
+
+    // 更新待办备注
+    function updateTodoNote(dateStr, todoId, note) {
+      const data = loadData();
+      const todos = data.todos[dateStr] || [];
+      const todo = todos.find(t => t.id === todoId);
+      if (todo) {
+        todo.note = note;
+        // 添加时间轴事件
+        if (!data.timeline[dateStr]) data.timeline[dateStr] = [];
+        const desc = note ? `编辑「${todo.text}」的备注` : `清空「${todo.text}」的备注`;
+        data.timeline[dateStr].push(createTimelineEvent('edit', todoId, desc));
+        saveData(data);
+      }
+    }
+
+    // 打开备注弹窗
+    function openNoteModal(todoId) {
+      const dateStr = formatDate(currentDate);
+      const todos = getTodosByDate(dateStr);
+      const todo = todos.find(t => t.id === todoId);
+      if (!todo) return;
+
+      currentNoteTodoId = todoId;
+      document.getElementById('noteTextarea').value = todo.note || '';
+      document.getElementById('noteModal').classList.add('active');
+      document.getElementById('noteTextarea').focus();
+    }
+
+    // 关闭备注弹窗
+    function closeNoteModalFn() {
+      document.getElementById('noteModal').classList.remove('active');
+      currentNoteTodoId = null;
+    }
+
+    // 保存备注
+    function saveNote() {
+      if (!currentNoteTodoId) return;
+      const note = document.getElementById('noteTextarea').value.trim();
+      const dateStr = formatDate(currentDate);
+      updateTodoNote(dateStr, currentNoteTodoId, note);
+      closeNoteModalFn();
+      renderTodoList();
+      renderTimeline();
+      showToast(note ? '备注已保存' : '备注已清空');
+    }
+
+    // 删除备注
+    function deleteNoteFn() {
+      if (!currentNoteTodoId) return;
+      const dateStr = formatDate(currentDate);
+      updateTodoNote(dateStr, currentNoteTodoId, '');
+      closeNoteModalFn();
+      renderTodoList();
+      renderTimeline();
+      showToast('备注已删除');
+    }
+
+    // 初始化备注事件
+    function initNoteEvents() {
+      // 备注按钮点击（事件委托）
+      document.getElementById('todoList').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-action="note"]');
+        if (btn) {
+          openNoteModal(btn.dataset.id);
+        }
+      });
+
+      // 关闭弹窗
+      document.getElementById('closeNoteModal').addEventListener('click', closeNoteModalFn);
+      document.getElementById('noteModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeNoteModalFn();
+      });
+
+      // 保存备注
+      document.getElementById('saveNote').addEventListener('click', saveNote);
+
+      // 删除备注
+      document.getElementById('deleteNote').addEventListener('click', deleteNoteFn);
+
+      // Ctrl+Enter 保存
+      document.getElementById('noteTextarea').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          saveNote();
+        }
+      });
+    }
+
+    console.log('DailyFlow 工作备注已加载');
+
+    // ========== 阶段六：数据持久化 ==========
+
+    // 6.3 JSON导出
+    function exportToJSON() {
+      const data = loadData();
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      const dateStr = formatDate(new Date());
+      a.href = url;
+      a.download = `dailyflow-backup-${dateStr}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // 记录备份时间
+      localStorage.setItem('dailyflow_last_backup', Date.now().toString());
+      showToast('备份文件已下载');
+    }
+
+    // 备份提醒检查
+    function checkBackupReminder() {
+      const lastBackup = localStorage.getItem('dailyflow_last_backup');
+      if (!lastBackup) {
+        // 从未备份过，延迟 3 秒后提醒（不打扰首次打开）
+        setTimeout(() => {
+          showToast('⚠️ 建议导出备份，防止数据丢失');
+        }, 3000);
+        return;
+      }
+
+      const daysSince = (Date.now() - parseInt(lastBackup)) / (1000 * 60 * 60 * 24);
+      if (daysSince >= 1) {
+        setTimeout(() => {
+          showToast('⚠️ 超过 1 天未备份，建议导出');
+        }, 3000);
+      }
+    }
+
+    // 6.4 JSON导入
+    function importFromJSON(file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          // 基本校验
+          if (!data.todos || !data.projects) {
+            showToast('文件格式不正确');
+            return;
+          }
+          if (!confirm('导入将覆盖当前所有数据，确定继续吗？')) return;
+          saveData(data);
+          // 刷新所有视图
+          renderProjectSelect();
+          renderTodoList();
+          renderTimeline();
+          renderCalendar();
+          showToast('数据已恢复');
+        } catch (err) {
+          showToast('文件解析失败');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // 初始化导出导入事件
+    function initExportImportEvents() {
+      document.getElementById('exportData').addEventListener('click', exportToJSON);
+
+      const fileInput = document.getElementById('importFile');
+      document.getElementById('importData').addEventListener('click', () => {
+        fileInput.click();
+      });
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          importFromJSON(e.target.files[0]);
+          e.target.value = ''; // 重置，允许重复导入同一文件
+        }
+      });
+    }
+
+    // ==================== 拖拽排序
+    let draggedItemId = null;
+
+    function reorderTodos(dateStr, fromId, toId) {
+      const data = loadData();
+      const todos = data.todos[dateStr];
+      if (!todos) return;
+
+      const fromIdx = todos.findIndex(t => t.id === fromId);
+      const toIdx = todos.findIndex(t => t.id === toId);
+      if (fromIdx === -1 || toIdx === -1) return;
+
+      const [moved] = todos.splice(fromIdx, 1);
+      todos.splice(toIdx, 0, moved);
+      data.todos[dateStr] = todos;
+      saveData(data);
+    }
+
+    function initDragDropEvents() {
+      const todoList = document.getElementById('todoList');
+
+      todoList.addEventListener('dragstart', (e) => {
+        const item = e.target.closest('.todo-item');
+        if (!item) return;
+        draggedItemId = item.dataset.id;
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      todoList.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+
+        const item = e.target.closest('.todo-item');
+        if (!item || item.dataset.id === draggedItemId) return;
+
+        // 清除其他 drag-over 样式
+        todoList.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+        item.classList.add('drag-over');
+      });
+
+      todoList.addEventListener('dragleave', (e) => {
+        const item = e.target.closest('.todo-item');
+        if (item) item.classList.remove('drag-over');
+      });
+
+      todoList.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const item = e.target.closest('.todo-item');
+        if (!item || !draggedItemId) return;
+
+        const targetId = item.dataset.id;
+        if (targetId !== draggedItemId) {
+          const dateStr = formatDate(currentDate);
+          reorderTodos(dateStr, draggedItemId, targetId);
+          renderTodoList();
+          renderTimeline();
+        }
+
+        // 清理样式
+        todoList.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+      });
+
+      todoList.addEventListener('dragend', (e) => {
+        const item = e.target.closest('.todo-item');
+        if (item) item.classList.remove('dragging');
+        todoList.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+        draggedItemId = null;
+      });
+    }
+
+    // ==================== 时间轴事件
+    function initTimelineEvents() {
+      const timelineList = document.getElementById('timelineList');
+
+      timelineList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.timeline-delete');
+        if (!btn) return;
+
+        const eventId = btn.dataset.id;
+        const dateStr = formatDate(currentDate);
+        deleteTimelineEvent(dateStr, eventId);
+        renderTimeline();
+        showToast('记录已删除');
+      });
+    }
+
+    // ==================== 快捷模板
+    function renderTemplateBar() {
+      const templates = getTemplates();
+      const bar = document.getElementById('templateBar');
+
+      let html = templates.map(t => `
+        <div class="template-chip" data-id="${t.id}" data-text="${escapeHtml(t.text)}" title="${escapeHtml(t.text)}">
+          ${escapeHtml(t.name)}
+        </div>
+      `).join('');
+
+      html += '<button class="manage-templates-btn" id="manageTemplatesBtn">⚙ 管理模板</button>';
+      bar.innerHTML = html;
+    }
+
+    function renderTemplateList() {
+      const templates = getTemplates();
+      const list = document.getElementById('templateList');
+
+      if (templates.length === 0) {
+        list.innerHTML = '<div class="empty-state" style="padding: 16px 0;"><div class="empty-text" style="font-size: 13px;">暂无模板，添加常用工作事项吧</div></div>';
+        return;
+      }
+
+      list.innerHTML = templates.map(t => `
+        <div class="template-item">
+          <div class="template-item-info">
+            <div class="template-item-name">${escapeHtml(t.name)}</div>
+            <div class="template-item-text">${escapeHtml(t.text)}</div>
+          </div>
+          <div class="template-item-actions">
+            <button class="project-item-btn delete" data-id="${t.id}" title="删除">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function initTemplateEvents() {
+      const bar = document.getElementById('templateBar');
+      const modal = document.getElementById('templateModal');
+      const closeBtn = document.getElementById('closeTemplateModal');
+      const addBtn = document.getElementById('addTemplateBtn');
+      const list = document.getElementById('templateList');
+
+      // 点击模板chip → 填入输入框
+      bar.addEventListener('click', (e) => {
+        const chip = e.target.closest('.template-chip');
+        if (chip) {
+          const input = document.getElementById('addInput');
+          input.value = chip.dataset.text;
+          input.focus();
+          return;
+        }
+
+        if (e.target.id === 'manageTemplatesBtn' || e.target.closest('#manageTemplatesBtn')) {
+          renderTemplateList();
+          modal.classList.add('active');
+        }
+      });
+
+      // 关闭弹窗
+      closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+
+      // 添加模板
+      addBtn.addEventListener('click', () => {
+        const nameInput = document.getElementById('newTemplateName');
+        const textInput = document.getElementById('newTemplateText');
+        const name = nameInput.value.trim();
+        const text = textInput.value.trim();
+
+        if (!name || !text) {
+          showToast('请填写模板名称和内容');
+          return;
+        }
+
+        addTemplate(name, text);
+        nameInput.value = '';
+        textInput.value = '';
+        renderTemplateList();
+        renderTemplateBar();
+        showToast('模板已添加');
+      });
+
+      // 删除模板（事件委托）
+      list.addEventListener('click', (e) => {
+        const btn = e.target.closest('.project-item-btn.delete');
+        if (!btn) return;
+
+        const id = btn.dataset.id;
+        deleteTemplate(id);
+        renderTemplateList();
+        renderTemplateBar();
+        showToast('模板已删除');
+      });
+    }
+
+    // ==================== 周统计
+    function getWeekDates() {
+      const today = new Date();
+      const dayOfWeek = today.getDay(); // 0=周日, 1=周一...
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+
+      const dates = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        dates.push(formatDate(d));
+      }
+      return dates;
+    }
+
+    function renderWeekStats() {
+      const weekDates = getWeekDates();
+      const dayLabels = ['一', '二', '三', '四', '五', '六', '日'];
+
+      let totalCompleted = 0;
+      let totalTodos = 0;
+      const weekProjects = new Set();
+
+      const chartEl = document.getElementById('weekChart');
+      chartEl.innerHTML = '';
+
+      weekDates.forEach((date, i) => {
+        const todos = getTodosByDate(date);
+        const total = todos.length;
+        const completed = todos.filter(t => t.completed).length;
+
+        totalTodos += total;
+        totalCompleted += completed;
+        todos.forEach(t => { if (t.project) weekProjects.add(t.project); });
+
+        const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'week-bar-wrapper';
+
+        const bar = document.createElement('div');
+        bar.className = 'week-bar';
+        bar.style.height = '60px';
+        bar.title = `${completed}/${total} (${rate}%)`;
+
+        const fill = document.createElement('div');
+        fill.className = 'week-bar-fill';
+        fill.style.height = rate + '%';
+        bar.appendChild(fill);
+
+        const label = document.createElement('div');
+        label.className = 'week-bar-label';
+        label.textContent = dayLabels[i];
+
+        wrapper.appendChild(bar);
+        wrapper.appendChild(label);
+        chartEl.appendChild(wrapper);
+      });
+
+      const weekRate = totalTodos > 0 ? Math.round((totalCompleted / totalTodos) * 100) : 0;
+
+      document.getElementById('weekTotal').textContent = totalCompleted;
+      document.getElementById('weekRate').textContent = weekRate + '%';
+      document.getElementById('weekProjects').textContent = weekProjects.size;
+    }
+
+    console.log('DailyFlow 数据持久化已加载');
+
+    // ========== 阶段七：搜索筛选 ==========
+
+    // 搜索状态
+    let searchQuery = '';
+    let searchProjectFilter = '';
+
+    // 高亮匹配文本
+    function highlightText(text, query) {
+      if (!query) return escapeHtml(text);
+      const escaped = escapeHtml(text);
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return escaped.replace(regex, '<span class="search-highlight">$1</span>');
+    }
+
+    // 跨日期搜索待办
+    function searchTodos(query, projectFilter) {
+      const data = loadData();
+      const results = [];
+      const q = query.toLowerCase();
+
+      for (const [dateStr, todos] of Object.entries(data.todos)) {
+        for (const todo of todos) {
+          const matchText = todo.text.toLowerCase().includes(q);
+          const matchNote = (todo.note || '').toLowerCase().includes(q);
+          const matchProject = (todo.project || '').toLowerCase().includes(q);
+          const projectMatch = !projectFilter || todo.project === projectFilter;
+
+          if (projectMatch && (matchText || matchNote || matchProject)) {
+            results.push({ ...todo, dateStr });
+          }
+        }
+      }
+
+      // 按日期倒序，同日期内按优先级排序
+      results.sort((a, b) => {
+        if (a.dateStr !== b.dateStr) return b.dateStr.localeCompare(a.dateStr);
+        return (PRIORITY_ORDER[a.priority] ?? 2) - (PRIORITY_ORDER[b.priority] ?? 2);
+      });
+
+      return results;
+    }
+
+    // 获取所有项目（去重）
+    function getAllProjects() {
+      const data = loadData();
+      const projectSet = new Set();
+      for (const todos of Object.values(data.todos)) {
+        for (const todo of todos) {
+          if (todo.project) projectSet.add(todo.project);
+        }
+      }
+      return [...projectSet].sort();
+    }
+
+    // 渲染搜索结果
+    function renderSearchResults() {
+      const todoList = document.getElementById('todoList');
+      const todoCount = document.getElementById('todoCount');
+      const sectionTitle = document.querySelector('.section-title');
+
+      const results = searchTodos(searchQuery, searchProjectFilter);
+      todoCount.textContent = `搜索结果 ${results.length} 条`;
+      sectionTitle.innerHTML = '<span class="icon">🔍</span> 搜索结果';
+
+      if (results.length === 0) {
+        todoList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <div class="empty-text">没有找到匹配的待办事项</div>
+          </div>
+        `;
+        return;
+      }
+
+      todoList.innerHTML = results.map(todo => {
+        const dateLabel = formatDateChinese(todo.dateStr);
+        return `
+          <div class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}">
+            <div class="checkbox ${todo.completed ? 'checked' : ''}" data-id="${todo.id}"></div>
+            <div class="todo-content">
+              <div class="todo-text">${highlightText(todo.text, searchQuery)}</div>
+              <div class="todo-meta">
+                <span class="todo-tag" style="background:#F3F4F6;color:#6B7280;">${dateLabel}</span>
+                ${todo.project ? `<span class="todo-tag tag-project">${highlightText(todo.project, searchQuery)}</span>` : ''}
+                ${todo.priority === 'urgent' ? '<span class="todo-tag tag-urgent">紧急</span>' : ''}
+                ${todo.priority === 'important' ? '<span class="todo-tag tag-important">重要</span>' : ''}
+              </div>
+              ${todo.note ? `
+                <div class="todo-note">
+                  <span class="note-icon">📝</span>
+                  ${highlightText(todo.note, searchQuery)}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          <div class="divider"></div>
+        `;
+      }).join('');
+    }
+
+    // 执行搜索
+    function performSearch() {
+      searchQuery = document.getElementById('searchInput').value.trim();
+      const clearBtn = document.getElementById('searchClear');
+
+      if (searchQuery) {
+        clearBtn.classList.add('visible');
+        renderSearchResults();
+      } else {
+        clearBtn.classList.remove('visible');
+        // 恢复正常视图
+        const sectionTitle = document.querySelector('.section-title');
+        sectionTitle.innerHTML = '<span class="icon">📋</span> 今日待办';
+        renderTodoList();
+      }
+    }
+
+    // 清除搜索
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      searchQuery = '';
+      searchProjectFilter = '';
+      document.getElementById('searchClear').classList.remove('visible');
+      const sectionTitle = document.querySelector('.section-title');
+      sectionTitle.innerHTML = '<span class="icon">📋</span> 今日待办';
+      renderTodoList();
+    }
+
+    // 初始化搜索事件
+    function initSearchEvents() {
+      const searchInput = document.getElementById('searchInput');
+
+      // 实时搜索（防抖）
+      let searchTimer = null;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(performSearch, 200);
+      });
+
+      // ESC 清除搜索
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          clearSearch();
+          searchInput.blur();
+        }
+      });
+
+      // 清除按钮
+      document.getElementById('searchClear').addEventListener('click', clearSearch);
+    }
+
+    console.log('DailyFlow 搜索筛选已加载');
+
+    // 更新initApp
     function initApp() {
-      // 同步日历月份
       calendarMonth = currentDate.getMonth();
       calendarYear = currentDate.getFullYear();
 
       updateDateDisplay();
       renderCalendar();
+      renderProjectSelect();
       renderTodoList();
       renderTimeline();
+      renderWeekStats();
+      renderTemplateBar();
       initAddTodoEvents();
       initTodoListEvents();
       initDeleteEvents();
@@ -2011,10 +3365,17 @@
       initCalendarClickEvents();
       initModalEvents();
       initCopyEvent();
+      initProjectEvents();
+      initNoteEvents();
+      initExportImportEvents();
+      initSearchEvents();
+      initTemplateEvents();
+      initTimelineEvents();
+      initDragDropEvents();
+      checkBackupReminder();
     }
 
-    console.log('DailyFlow 复制功能已加载');
-    console.log('DailyFlow 第三阶段初始化完成');
+    console.log('DailyFlow v1.13 初始化完成');
   </script>
 
 </body>
