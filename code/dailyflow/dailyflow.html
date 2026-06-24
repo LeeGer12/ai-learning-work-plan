@@ -12,56 +12,102 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --ink: #2C2825;
+      --ink-light: #5C5652;
+      --ink-muted: #9A938C;
+      --paper: #F5F1EC;
+      --paper-warm: #EDE8E1;
+      --paper-card: #FDFBF8;
+      --terracotta: #C4704B;
+      --terracotta-light: #E8A987;
+      --terracotta-bg: #FDF0EB;
+      --olive: #7A8B6F;
+      --olive-light: #B5C4A8;
+      --olive-bg: #F2F5EF;
+      --clay: #D4A574;
+      --clay-light: #E8CDB0;
+      --clay-bg: #FBF5EE;
+      --border: #E5DED5;
+      --border-light: #EDE8E1;
+      --shadow-sm: 0 1px 3px rgba(44,40,37,0.05);
+      --shadow-md: 0 4px 16px rgba(44,40,37,0.08);
+      --shadow-lg: 0 12px 40px rgba(44,40,37,0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
     body {
-      font-family: -apple-system, "Microsoft YaHei", "Segoe UI", sans-serif;
-      background: #F8F9FC;
-      color: #111827;
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 纸张纹理叠加 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
     }
 
     /* ========== 顶部导航栏 ========== */
     .top-bar {
-      background: #FFFFFF;
-      height: 56px;
-      padding: 0 24px;
+      background: var(--paper-card);
+      height: 60px;
+      padding: 0 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      box-shadow: var(--shadow-sm);
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: #3B82F6;
+      width: 34px;
+      height: 34px;
+      background: var(--ink);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
+      color: var(--paper);
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
     }
 
     .logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      color: #111827;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.5px;
     }
 
     .logo-sub {
-      font-size: 12px;
-      color: #6B7280;
-      margin-left: 4px;
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-left: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .top-bar-center {
@@ -69,35 +115,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     .search-box {
       position: relative;
-      width: 280px;
+      width: 260px;
     }
 
     .search-input {
       width: 100%;
       height: 36px;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       padding: 0 14px 0 36px;
       font-size: 13px;
-      color: #111827;
-      background: #F8F9FC;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--paper);
       outline: none;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .search-input::placeholder {
-      color: #9CA3AF;
+      color: var(--ink-muted);
     }
 
     .search-input:focus {
-      background: #FFFFFF;
-      border-color: #3B82F6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: var(--paper-card);
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(196,112,75,0.1);
     }
 
     .search-clear {
@@ -111,7 +158,7 @@
       background: transparent;
       cursor: pointer;
       font-size: 12px;
-      color: #9CA3AF;
+      color: var(--ink-muted);
       display: none;
       align-items: center;
       justify-content: center;
@@ -119,8 +166,8 @@
     }
 
     .search-clear:hover {
-      background: #E5E7EB;
-      color: #374151;
+      background: var(--paper-warm);
+      color: var(--ink);
     }
 
     .search-clear.visible {
@@ -128,9 +175,10 @@
     }
 
     .search-highlight {
-      background: #FEF08A;
+      background: var(--clay-light);
       border-radius: 2px;
-      padding: 0 1px;
+      padding: 0 2px;
+      color: var(--ink);
     }
 
     .search-icon {
@@ -138,8 +186,8 @@
       left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 14px;
-      color: #9CA3AF;
+      font-size: 13px;
+      color: var(--ink-muted);
     }
 
     .top-bar-right {
@@ -151,61 +199,66 @@
     .template-btn {
       height: 36px;
       padding: 0 14px;
-      background: #FFFFFF;
-      color: #374151;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      background: var(--paper-card);
+      color: var(--ink-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .template-btn:hover {
-      background: #F3F4F6;
-      border-color: #D1D5DB;
+      background: var(--paper-warm);
+      border-color: var(--clay);
     }
 
     .date-nav {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .date-btn {
       width: 32px;
       height: 32px;
-      border: 1px solid #E5E7EB;
-      background: #FFFFFF;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--paper-card);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      color: #374151;
-      transition: all 0.15s;
+      font-size: 12px;
+      color: var(--ink-light);
+      transition: all 0.2s ease;
     }
 
     .date-btn:hover {
-      background: #F3F4F6;
-      border-color: #D1D5DB;
+      background: var(--paper-warm);
+      border-color: var(--clay);
+      color: var(--ink);
     }
 
     .date-display {
-      font-size: 18px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 19px;
       font-weight: 600;
-      color: #111827;
+      color: var(--ink);
       min-width: 200px;
       text-align: center;
+      letter-spacing: -0.3px;
     }
 
     .date-weekday {
+      font-family: 'DM Sans', sans-serif;
       font-size: 12px;
-      color: #6B7280;
+      color: var(--ink-muted);
       font-weight: 400;
     }
 
@@ -213,80 +266,87 @@
     .main-container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 28px;
       display: flex;
       gap: 24px;
-      min-height: calc(100vh - 56px);
+      min-height: calc(100vh - 60px);
     }
 
     /* ========== 左侧：日历导航 ========== */
     .calendar-section {
-      width: 290px;
-      min-width: 290px;
+      width: 280px;
+      min-width: 280px;
     }
 
     .calendar-card {
-      background: #FFFFFF;
-      border-radius: 24px;
-      padding: 28px 28px 24px;
+      background: var(--paper-card);
+      border-radius: var(--radius-xl);
+      padding: 24px 24px 20px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
     }
 
     .calendar-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .calendar-month {
-      font-size: 16px;
-      font-weight: 700;
-      color: #111827;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.2px;
     }
 
     .calendar-nav {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .calendar-nav-btn {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border: none;
-      background: #F3F4F6;
+      background: var(--paper);
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      color: #374151;
-      transition: all 0.15s;
+      font-size: 11px;
+      color: var(--ink-light);
+      transition: all 0.2s ease;
     }
 
     .calendar-nav-btn:hover {
-      background: #E5E7EB;
+      background: var(--paper-warm);
+      color: var(--ink);
     }
 
     .calendar-weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 0;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .calendar-weekday {
-      font-size: 11px;
-      color: #9CA3AF;
+      font-size: 10px;
+      color: var(--ink-muted);
       text-align: center;
       padding: 0;
-      font-weight: 400;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .calendar-days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 6px 0;
+      gap: 4px 0;
       caret-color: transparent;
     }
 
@@ -294,65 +354,65 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       padding: 2px 0;
     }
 
     .calendar-day-circle {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .calendar-day-circle:hover {
-      background: #F3F4F6;
+      background: var(--paper-warm);
     }
 
     .calendar-day-num {
       font-size: 11px;
-      color: #6B7280;
+      color: var(--ink-muted);
       font-weight: 400;
       line-height: 1;
     }
 
-    /* 有记录的日期：蓝底白字 + 表情 */
+    /* 有记录的日期 */
     .calendar-day-circle.has-record {
-      background: #3B82F6;
+      background: var(--terracotta);
     }
 
     .calendar-day-circle.has-record .day-emoji {
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1;
     }
 
     .calendar-day-wrapper.has-record .calendar-day-num {
-      color: #3B82F6;
+      color: var(--terracotta);
       font-weight: 600;
     }
 
     /* 今天 */
     .calendar-day-circle.today {
-      background: #3B82F6;
+      background: var(--ink);
     }
 
     .calendar-day-circle.today .day-emoji {
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1;
     }
 
     .calendar-day-wrapper.today .calendar-day-num {
-      color: #3B82F6;
+      color: var(--ink);
       font-weight: 600;
     }
 
     /* 其他月份 */
     .calendar-day-num.other-month {
-      color: #D1D5DB;
+      color: var(--border);
     }
 
     /* ========== 中间：待办列表 ========== */
@@ -365,30 +425,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 16px 12px;
-      border-bottom: 1px solid #F3F4F6;
+      padding: 16px 20px 14px;
+      border-bottom: 1px solid var(--border-light);
       margin-bottom: 4px;
     }
 
     .section-title {
-      font-size: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 17px;
       font-weight: 600;
-      color: #374151;
+      color: var(--ink);
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.2px;
     }
 
     .section-title .icon {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .todo-count {
-      font-size: 12px;
-      color: #6B7280;
-      background: #F3F4F6;
-      padding: 2px 10px;
-      border-radius: 12px;
+      font-size: 11px;
+      color: var(--ink-muted);
+      background: var(--paper);
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-weight: 500;
     }
 
     .section-actions {
@@ -400,25 +463,27 @@
     .sort-btn {
       height: 26px;
       padding: 0 10px;
-      border: 1px solid #E5E7EB;
-      border-radius: 6px;
-      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--paper-card);
       font-size: 11px;
-      color: #6B7280;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink-muted);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .sort-btn:hover {
-      border-color: #3B82F6;
-      color: #3B82F6;
+      border-color: var(--terracotta);
+      color: var(--terracotta);
     }
 
     /* ========== 待办卡片 ========== */
     .todo-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      background: var(--paper-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
       padding: 4px 0;
       margin-bottom: 16px;
     }
@@ -426,15 +491,15 @@
     .todo-item {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
       padding: 12px 16px;
-      transition: background 0.15s;
-      border-radius: 8px;
+      transition: all 0.2s ease;
+      border-radius: var(--radius-md);
       margin: 4px 8px;
     }
 
     .todo-item:hover {
-      background: #F8F9FC;
+      background: var(--paper);
     }
 
     .todo-item:hover .todo-delete {
@@ -447,11 +512,11 @@
 
     .todo-item.dragging {
       opacity: 0.4;
-      background: #EFF6FF;
+      background: var(--terracotta-bg);
     }
 
     .todo-item.drag-over {
-      border-top: 2px solid #3B82F6;
+      border-top: 2px solid var(--terracotta);
     }
 
     /* 拖拽手柄 */
@@ -463,10 +528,10 @@
       align-items: center;
       justify-content: center;
       cursor: grab;
-      color: #D1D5DB;
+      color: var(--border);
       font-size: 14px;
       opacity: 0;
-      transition: opacity 0.15s;
+      transition: opacity 0.2s ease;
       margin-top: 1px;
       user-select: none;
     }
@@ -480,29 +545,29 @@
       width: 18px;
       height: 18px;
       min-width: 18px;
-      border: 2px solid #D1D5DB;
+      border: 1.5px solid var(--border);
       border-radius: 4px;
-      margin-top: 1px;
+      margin-top: 2px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .checkbox:hover {
-      border-color: #3B82F6;
+      border-color: var(--terracotta);
     }
 
     .checkbox.checked {
-      background: #3B82F6;
-      border-color: #3B82F6;
+      background: var(--terracotta);
+      border-color: var(--terracotta);
     }
 
     .checkbox.checked::after {
       content: "✓";
       color: white;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
     }
 
@@ -514,26 +579,28 @@
 
     .todo-text {
       font-size: 14px;
-      color: #111827;
+      color: var(--ink);
       line-height: 1.5;
     }
 
     .todo-item.completed .todo-text {
       text-decoration: line-through;
-      color: #9CA3AF;
+      color: var(--ink-muted);
     }
 
     .todo-note {
       font-size: 12px;
-      color: #6B7280;
-      margin-top: 4px;
+      color: var(--ink-muted);
+      margin-top: 5px;
       display: flex;
       align-items: center;
       gap: 4px;
+      font-style: italic;
     }
 
     .todo-note .note-icon {
-      font-size: 12px;
+      font-size: 11px;
+      font-style: normal;
     }
 
     .todo-meta {
@@ -544,39 +611,45 @@
     }
 
     .todo-tag {
-      font-size: 11px;
+      font-size: 10px;
       padding: 2px 8px;
       border-radius: 4px;
       font-weight: 500;
+      letter-spacing: 0.2px;
     }
 
     .tag-project {
-      background: #EFF6FF;
-      color: #3B82F6;
+      background: var(--clay-bg);
+      color: var(--clay);
     }
 
     .tag-urgent {
-      background: #FEF2F2;
-      color: #EF4444;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
     }
 
     .tag-important {
-      background: #FFF7ED;
-      color: #F59E0B;
+      background: var(--olive-bg);
+      color: var(--olive);
     }
 
     .tag-normal {
-      background: #F3F4F6;
-      color: #6B7280;
+      background: var(--paper);
+      color: var(--ink-muted);
+    }
+
+    .tag-carried {
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
     }
 
     /* 操作按钮 */
     .todo-actions {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       opacity: 0;
-      transition: opacity 0.15s;
+      transition: opacity 0.2s ease;
     }
 
     .todo-item:hover .todo-actions {
@@ -588,24 +661,24 @@
       height: 28px;
       border: none;
       background: transparent;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      color: #9CA3AF;
-      transition: all 0.15s;
+      font-size: 13px;
+      color: var(--ink-muted);
+      transition: all 0.2s ease;
     }
 
     .todo-action-btn:hover {
-      background: #F3F4F6;
-      color: #374151;
+      background: var(--paper-warm);
+      color: var(--ink);
     }
 
     .todo-action-btn.delete:hover {
-      background: #FEF2F2;
-      color: #EF4444;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
     }
 
     /* ========== 添加待办 ========== */
@@ -624,44 +697,46 @@
     .add-input {
       flex: 1;
       height: 40px;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       padding: 0 14px;
       font-size: 14px;
-      color: #111827;
-      background: #FFFFFF;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--paper-card);
       outline: none;
-      transition: border-color 0.15s;
+      transition: all 0.2s ease;
     }
 
     .add-input::placeholder {
-      color: #9CA3AF;
+      color: var(--ink-muted);
     }
 
     .add-input:focus {
-      border-color: #3B82F6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(196,112,75,0.1);
     }
 
     .add-btn {
       height: 40px;
       padding: 0 20px;
-      background: #3B82F6;
-      color: #FFFFFF;
+      background: var(--ink);
+      color: var(--paper);
       border: none;
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.15s;
+      transition: all 0.2s ease;
       white-space: nowrap;
     }
 
     .add-btn:hover {
-      background: #2563EB;
+      background: var(--ink-light);
     }
 
     .add-todo-options {
@@ -672,42 +747,44 @@
 
     .option-select {
       height: 32px;
-      border: 1px solid #E5E7EB;
-      border-radius: 6px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
       padding: 0 10px;
       font-size: 12px;
-      color: #374151;
-      background: #FFFFFF;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink-light);
+      background: var(--paper-card);
       outline: none;
       cursor: pointer;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s ease;
     }
 
     .option-select:focus {
-      border-color: #3B82F6;
+      border-color: var(--terracotta);
     }
 
     .option-label {
       font-size: 12px;
-      color: #9CA3AF;
+      color: var(--ink-muted);
     }
 
     .manage-projects-btn {
       height: 32px;
       padding: 0 10px;
-      border: 1px dashed #D1D5DB;
-      border-radius: 6px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
       background: transparent;
       font-size: 12px;
-      color: #6B7280;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink-muted);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
       margin-left: auto;
     }
 
     .manage-projects-btn:hover {
-      border-color: #3B82F6;
-      color: #3B82F6;
+      border-color: var(--terracotta);
+      color: var(--terracotta);
     }
 
     /* 快捷模板 */
@@ -719,58 +796,60 @@
     }
 
     .template-chip {
-      height: 30px;
+      height: 28px;
       padding: 0 12px;
-      border: 1px solid #E5E7EB;
-      border-radius: 15px;
-      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--paper-card);
       font-size: 12px;
-      color: #374151;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink-light);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
     .template-chip:hover {
-      border-color: #3B82F6;
-      color: #3B82F6;
-      background: #EFF6FF;
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+      background: var(--terracotta-bg);
     }
 
     .template-chip .chip-delete {
-      font-size: 14px;
-      color: #9CA3AF;
+      font-size: 13px;
+      color: var(--ink-muted);
       margin-left: 2px;
       line-height: 1;
     }
 
     .template-chip .chip-delete:hover {
-      color: #EF4444;
+      color: var(--terracotta);
     }
 
     .manage-templates-btn {
-      height: 30px;
+      height: 28px;
       padding: 0 10px;
-      border: 1px dashed #D1D5DB;
-      border-radius: 15px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
       background: transparent;
       font-size: 12px;
-      color: #6B7280;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink-muted);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .manage-templates-btn:hover {
-      border-color: #3B82F6;
-      color: #3B82F6;
+      border-color: var(--terracotta);
+      color: var(--terracotta);
     }
 
     /* ========== 右侧：侧边栏 ========== */
     .sidebar {
-      width: 280px;
-      min-width: 280px;
+      width: 270px;
+      min-width: 270px;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -778,82 +857,92 @@
 
     /* 快捷操作卡片 */
     .action-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      background: var(--paper-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
       padding: 20px;
     }
 
     .action-card-title {
-      font-size: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 15px;
       font-weight: 600;
-      color: #374151;
+      color: var(--ink);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.2px;
     }
 
     .btn-primary {
       width: 100%;
-      height: 44px;
-      background: #3B82F6;
+      height: 42px;
+      background: var(--terracotta);
       color: #FFFFFF;
       border: none;
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background 0.15s;
+      transition: all 0.2s ease;
       margin-bottom: 10px;
     }
 
     .btn-primary:hover {
-      background: #2563EB;
+      background: #B5633E;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(196,112,75,0.25);
     }
 
     .btn-secondary {
       width: 100%;
-      height: 40px;
-      background: #FFFFFF;
-      color: #374151;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
-      font-size: 14px;
+      height: 38px;
+      background: var(--paper-card);
+      color: var(--ink-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .btn-secondary:hover {
-      background: #F3F4F6;
-      border-color: #D1D5DB;
+      background: var(--paper-warm);
+      border-color: var(--clay);
     }
 
     /* 时间轴 */
     .timeline-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      background: var(--paper-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
       padding: 20px;
     }
 
     .timeline-title {
-      font-size: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 15px;
       font-weight: 600;
-      color: #374151;
+      color: var(--ink);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.2px;
     }
 
     .timeline-list {
@@ -874,8 +963,8 @@
       left: 15px;
       top: 24px;
       bottom: -12px;
-      width: 2px;
-      background: #E5E7EB;
+      width: 1.5px;
+      background: var(--border);
     }
 
     .timeline-item:last-child::before {
@@ -883,27 +972,27 @@
     }
 
     .timeline-dot {
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 13px;
       z-index: 1;
     }
 
     .timeline-dot.add {
-      background: #EFF6FF;
+      background: var(--clay-bg);
     }
 
     .timeline-dot.complete {
-      background: #ECFDF5;
+      background: var(--olive-bg);
     }
 
     .timeline-dot.edit {
-      background: #FFF7ED;
+      background: var(--terracotta-bg);
     }
 
     .timeline-info {
@@ -913,13 +1002,13 @@
 
     .timeline-text {
       font-size: 13px;
-      color: #374151;
+      color: var(--ink-light);
       line-height: 1.4;
     }
 
     .timeline-time {
       font-size: 11px;
-      color: #9CA3AF;
+      color: var(--ink-muted);
       margin-top: 2px;
     }
 
@@ -928,15 +1017,15 @@
       height: 22px;
       border: none;
       background: transparent;
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 12px;
-      color: #9CA3AF;
+      font-size: 11px;
+      color: var(--ink-muted);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
       flex-shrink: 0;
     }
 
@@ -945,17 +1034,18 @@
     }
 
     .timeline-delete:hover {
-      background: #FEF2F2;
-      color: #EF4444;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
     }
 
     .timeline-toggle {
       text-align: center;
       font-size: 12px;
-      color: #3B82F6;
+      color: var(--terracotta);
       cursor: pointer;
       padding: 8px 0 0;
       user-select: none;
+      font-weight: 500;
     }
 
     .timeline-toggle:hover {
@@ -964,28 +1054,31 @@
 
     /* 本周概览 */
     .week-stats-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      background: var(--paper-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
       padding: 20px;
     }
 
     .week-stats-title {
-      font-size: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 15px;
       font-weight: 600;
-      color: #374151;
+      color: var(--ink);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.2px;
     }
 
     .week-chart {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      height: 80px;
-      gap: 8px;
+      height: 72px;
+      gap: 6px;
       margin-bottom: 12px;
     }
 
@@ -999,8 +1092,8 @@
 
     .week-bar {
       width: 100%;
-      background: #E5E7EB;
-      border-radius: 4px 4px 0 0;
+      background: var(--paper);
+      border-radius: 3px 3px 0 0;
       position: relative;
       min-height: 4px;
     }
@@ -1010,21 +1103,22 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #3B82F6;
-      border-radius: 4px 4px 0 0;
-      transition: height 0.3s ease;
+      background: var(--olive);
+      border-radius: 3px 3px 0 0;
+      transition: height 0.4s ease;
     }
 
     .week-bar-label {
-      font-size: 11px;
-      color: #6B7280;
+      font-size: 10px;
+      color: var(--ink-muted);
+      font-weight: 500;
     }
 
     .week-summary {
       display: flex;
       justify-content: space-between;
       padding-top: 12px;
-      border-top: 1px solid #F3F4F6;
+      border-top: 1px solid var(--border-light);
     }
 
     .week-summary-item {
@@ -1032,33 +1126,38 @@
     }
 
     .week-summary-value {
-      font-size: 18px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 20px;
       font-weight: 700;
-      color: #111827;
+      color: var(--ink);
     }
 
     .week-summary-label {
-      font-size: 11px;
-      color: #6B7280;
+      font-size: 10px;
+      color: var(--ink-muted);
       margin-top: 2px;
+      letter-spacing: 0.3px;
     }
 
     /* 统计卡片 */
     .stats-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      background: var(--paper-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
       padding: 20px;
     }
 
     .stats-title {
-      font-size: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 15px;
       font-weight: 600;
-      color: #374151;
+      color: var(--ink);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.2px;
     }
 
     .stats-row {
@@ -1070,40 +1169,42 @@
 
     .stats-label {
       font-size: 12px;
-      color: #6B7280;
+      color: var(--ink-muted);
     }
 
     .stats-value {
-      font-size: 24px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 26px;
       font-weight: 700;
-      color: #111827;
+      color: var(--ink);
     }
 
     .stats-value .unit {
+      font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       font-weight: 400;
-      color: #6B7280;
+      color: var(--ink-muted);
     }
 
     .progress-bar {
       width: 100%;
-      height: 8px;
-      background: #F3F4F6;
-      border-radius: 4px;
+      height: 6px;
+      background: var(--paper);
+      border-radius: 3px;
       overflow: hidden;
       margin-top: 4px;
     }
 
     .progress-fill {
       height: 100%;
-      background: #10B981;
-      border-radius: 4px;
-      transition: width 0.3s ease;
+      background: var(--olive);
+      border-radius: 3px;
+      transition: width 0.4s ease;
     }
 
     .progress-text {
-      font-size: 12px;
-      color: #6B7280;
+      font-size: 11px;
+      color: var(--ink-muted);
       text-align: right;
       margin-top: 4px;
     }
@@ -1115,7 +1216,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(44,40,37,0.25);
+      backdrop-filter: blur(4px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -1127,12 +1229,19 @@
     }
 
     .modal {
-      background: #FFFFFF;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      width: 560px;
+      background: var(--paper-card);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      width: 540px;
       max-width: 90vw;
       overflow: hidden;
+      border: 1px solid var(--border);
+      animation: modalIn 0.25s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .modal-header {
@@ -1143,12 +1252,14 @@
     }
 
     .modal-title {
-      font-size: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 17px;
       font-weight: 600;
-      color: #111827;
+      color: var(--ink);
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.2px;
     }
 
     .modal-close {
@@ -1156,19 +1267,19 @@
       height: 32px;
       border: none;
       background: transparent;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 18px;
-      color: #6B7280;
+      font-size: 16px;
+      color: var(--ink-muted);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .modal-close:hover {
-      background: #F3F4F6;
-      color: #111827;
+      background: var(--paper);
+      color: var(--ink);
     }
 
     .modal-body {
@@ -1176,29 +1287,31 @@
     }
 
     .report-preview {
-      background: #F8F9FC;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       padding: 16px;
+      font-family: 'Newsreader', Georgia, serif;
       font-size: 14px;
       line-height: 1.8;
-      color: #111827;
+      color: var(--ink);
       white-space: pre-wrap;
       min-height: 120px;
       outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: all 0.2s ease;
     }
 
     .report-preview:focus {
-      border-color: #3B82F6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-      background: #FFFFFF;
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(196,112,75,0.1);
+      background: var(--paper-card);
     }
 
     .report-hint {
       font-size: 12px;
-      color: #9CA3AF;
+      color: var(--ink-muted);
       margin-top: 8px;
+      font-style: italic;
     }
 
     .modal-footer {
@@ -1209,43 +1322,44 @@
     }
 
     .modal-btn {
-      height: 40px;
-      padding: 0 20px;
-      border-radius: 8px;
-      font-size: 14px;
+      height: 38px;
+      padding: 0 18px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .modal-btn.primary {
-      background: #3B82F6;
+      background: var(--terracotta);
       color: #FFFFFF;
       border: none;
     }
 
     .modal-btn.primary:hover {
-      background: #2563EB;
+      background: #B5633E;
     }
 
     .modal-btn.secondary {
-      background: #FFFFFF;
-      color: #374151;
-      border: 1px solid #E5E7EB;
+      background: var(--paper-card);
+      color: var(--ink-light);
+      border: 1px solid var(--border);
     }
 
     .modal-btn.secondary:hover {
-      background: #F3F4F6;
+      background: var(--paper);
     }
 
     /* ========== 项目管理弹窗 ========== */
     .project-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       max-height: 300px;
       overflow-y: auto;
     }
@@ -1255,28 +1369,28 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 12px;
-      background: #F8F9FC;
-      border-radius: 8px;
-      transition: background 0.15s;
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      transition: background 0.2s ease;
     }
 
     .project-item:hover {
-      background: #EFF6FF;
+      background: var(--clay-bg);
     }
 
     .project-item-name {
       font-size: 14px;
-      color: #111827;
+      color: var(--ink);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .project-item-name .dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #3B82F6;
+      background: var(--terracotta);
     }
 
     .project-item-actions {
@@ -1289,24 +1403,24 @@
       height: 28px;
       border: none;
       background: transparent;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 14px;
-      color: #9CA3AF;
+      font-size: 13px;
+      color: var(--ink-muted);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .project-item-btn:hover {
-      background: #E5E7EB;
-      color: #374151;
+      background: var(--paper-warm);
+      color: var(--ink);
     }
 
     .project-item-btn.delete:hover {
-      background: #FEF2F2;
-      color: #EF4444;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
     }
 
     .project-add-row {
@@ -1314,47 +1428,49 @@
       gap: 8px;
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px solid #E5E7EB;
+      border-top: 1px solid var(--border);
     }
 
     .project-add-input {
       flex: 1;
       height: 36px;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       padding: 0 12px;
       font-size: 13px;
-      color: #111827;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s ease;
     }
 
     .project-add-input:focus {
-      border-color: #3B82F6;
+      border-color: var(--terracotta);
     }
 
     .project-add-btn {
       height: 36px;
       padding: 0 16px;
-      background: #3B82F6;
+      background: var(--terracotta);
       color: #FFFFFF;
       border: none;
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.2s ease;
     }
 
     .project-add-btn:hover {
-      background: #2563EB;
+      background: #B5633E;
     }
 
     /* 模板管理弹窗 */
     .template-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       max-height: 300px;
       overflow-y: auto;
     }
@@ -1364,13 +1480,13 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 12px;
-      background: #F8F9FC;
-      border-radius: 8px;
-      transition: background 0.15s;
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      transition: background 0.2s ease;
     }
 
     .template-item:hover {
-      background: #EFF6FF;
+      background: var(--clay-bg);
     }
 
     .template-item-info {
@@ -1381,12 +1497,12 @@
     .template-item-name {
       font-size: 13px;
       font-weight: 600;
-      color: #111827;
+      color: var(--ink);
     }
 
     .template-item-text {
       font-size: 12px;
-      color: #6B7280;
+      color: var(--ink-muted);
       margin-top: 2px;
       white-space: nowrap;
       overflow: hidden;
@@ -1405,109 +1521,1284 @@
       flex-wrap: wrap;
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px solid #E5E7EB;
+      border-top: 1px solid var(--border);
     }
 
     .template-add-input {
       flex: 1;
       min-width: 120px;
       height: 36px;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       padding: 0 12px;
       font-size: 13px;
-      color: #111827;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s ease;
     }
 
     .template-add-input:focus {
-      border-color: #3B82F6;
+      border-color: var(--terracotta);
     }
 
     .template-add-btn {
       height: 36px;
       padding: 0 16px;
-      background: #3B82F6;
+      background: var(--terracotta);
       color: #FFFFFF;
       border: none;
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.2s ease;
     }
 
     .template-add-btn:hover {
-      background: #2563EB;
+      background: #B5633E;
     }
 
     /* ========== 备注编辑弹窗 ========== */
     .note-textarea {
       width: 100%;
       min-height: 100px;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       padding: 12px;
       font-size: 14px;
-      color: #111827;
-      font-family: inherit;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
       resize: vertical;
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s ease;
+      background: var(--paper);
     }
 
     .note-textarea:focus {
-      border-color: #3B82F6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(196,112,75,0.1);
+      background: var(--paper-card);
     }
 
     .note-hint {
       font-size: 12px;
-      color: #9CA3AF;
+      color: var(--ink-muted);
       margin-top: 8px;
+      font-style: italic;
     }
 
     /* ========== 空状态 ========== */
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: #9CA3AF;
+      color: var(--ink-muted);
     }
 
     .empty-state .empty-icon {
-      font-size: 48px;
+      font-size: 40px;
       margin-bottom: 12px;
+      opacity: 0.6;
     }
 
     .empty-state .empty-text {
-      font-size: 14px;
+      font-size: 13px;
+      font-style: italic;
     }
 
     /* ========== 分割线 ========== */
     .divider {
       height: 1px;
-      background: #E5E7EB;
-      margin: 4px 8px;
+      background: var(--border-light);
+      margin: 0 8px;
     }
 
     /* ========== 提示消息 ========== */
     .toast {
       position: fixed;
-      bottom: 20px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: #111827;
-      color: #FFFFFF;
+      background: var(--ink);
+      color: var(--paper);
       padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       z-index: 2000;
-      transition: transform 0.3s ease;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: var(--shadow-md);
     }
 
     .toast.show {
       transform: translateX(-50%) translateY(0);
+    }
+
+    /* ========== v1.14 Visual Refresh: Designer Workbench ========== */
+    :root {
+      --ink: #111827;
+      --ink-light: #374151;
+      --ink-muted: #8A94A6;
+      --paper: #F4F7FB;
+      --paper-warm: #EEF4FF;
+      --paper-card: rgba(255,255,255,0.94);
+      --terracotta: #2563EB;
+      --terracotta-light: #60A5FA;
+      --terracotta-bg: #EAF2FF;
+      --olive: #14B8A6;
+      --olive-light: #5EEAD4;
+      --olive-bg: #E8FBF8;
+      --clay: #F59E0B;
+      --clay-light: #FDE68A;
+      --clay-bg: #FFF7E6;
+      --border: #DDE5F1;
+      --border-light: #E8EEF7;
+      --danger: #EF4444;
+      --danger-bg: #FEF2F2;
+      --surface-strong: #0F172A;
+      --surface-tint: #F8FBFF;
+      --shadow-sm: 0 10px 28px rgba(15,23,42,0.045);
+      --shadow-md: 0 18px 44px rgba(15,23,42,0.08);
+      --shadow-lg: 0 28px 80px rgba(15,23,42,0.18);
+      --radius-sm: 8px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "Segoe UI", sans-serif;
+      background:
+        linear-gradient(120deg, rgba(37,99,235,0.10), transparent 34%),
+        linear-gradient(235deg, rgba(20,184,166,0.10), transparent 36%),
+        var(--paper);
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    body::before {
+      z-index: 0;
+      opacity: 1;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.055) 1px, transparent 1px),
+        radial-gradient(circle at 24px 24px, rgba(20,184,166,0.11) 1px, transparent 1.4px);
+      background-size: 44px 44px, 44px 44px, 88px 88px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.20));
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.14));
+    }
+
+    .top-bar,
+    .main-container {
+      position: relative;
+    }
+
+    .top-bar {
+      height: 68px;
+      padding: 0 30px;
+      background: rgba(255,255,255,0.82);
+      border-bottom: 1px solid rgba(221,229,241,0.85);
+      box-shadow: 0 12px 36px rgba(15,23,42,0.06);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background:
+        linear-gradient(135deg, #111827 0%, #2563EB 54%, #14B8A6 100%);
+      color: #FFFFFF;
+      border-radius: 12px;
+      font-family: inherit;
+      box-shadow: 0 12px 28px rgba(37,99,235,0.24);
+    }
+
+    .logo-text,
+    .date-display,
+    .calendar-month,
+    .section-title,
+    .action-card-title,
+    .timeline-title,
+    .week-stats-title,
+    .stats-title,
+    .modal-title,
+    .week-summary-value,
+    .stats-value,
+    .report-preview {
+      font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "Segoe UI", sans-serif;
+    }
+
+    .logo-text {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--surface-strong);
+      letter-spacing: 0;
+    }
+
+    .logo-sub {
+      color: var(--ink-muted);
+      font-size: 12px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .top-bar-center {
+      gap: 18px;
+    }
+
+    .date-nav {
+      gap: 8px;
+      padding: 6px;
+      background: rgba(248,251,255,0.82);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+    }
+
+    .date-btn,
+    .calendar-nav-btn {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      color: var(--ink-light);
+      box-shadow: 0 4px 12px rgba(15,23,42,0.04);
+    }
+
+    .date-btn:hover,
+    .calendar-nav-btn:hover {
+      background: var(--terracotta-bg);
+      border-color: rgba(37,99,235,0.32);
+      color: var(--terracotta);
+      transform: translateY(-1px);
+    }
+
+    .date-display {
+      min-width: 210px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--surface-strong);
+    }
+
+    .date-weekday {
+      font-family: inherit;
+      color: var(--ink-muted);
+      font-size: 12px;
+    }
+
+    .search-box {
+      width: 300px;
+    }
+
+    .search-input,
+    .add-input,
+    .option-select,
+    .project-add-input,
+    .template-add-input,
+    .note-textarea {
+      font-family: inherit;
+      background: rgba(255,255,255,0.9);
+      border-color: var(--border);
+      color: var(--ink);
+    }
+
+    .search-input {
+      height: 40px;
+      border-radius: 999px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .search-input:focus,
+    .add-input:focus,
+    .note-textarea:focus,
+    .report-preview:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+      background: #FFFFFF;
+    }
+
+    .search-highlight {
+      background: #DBEAFE;
+      color: #1D4ED8;
+      border-radius: 5px;
+    }
+
+    .template-btn {
+      height: 40px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border-color: var(--border);
+      color: var(--surface-strong);
+      font-family: inherit;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.05);
+    }
+
+    .template-btn:hover {
+      background: var(--surface-strong);
+      border-color: var(--surface-strong);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .main-container {
+      z-index: 1;
+      max-width: 1360px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 286px minmax(520px, 1fr) 288px;
+      gap: 22px;
+      animation: workbenchIn 0.46s cubic-bezier(0.2,0.8,0.2,1) both;
+    }
+
+    @keyframes workbenchIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .calendar-section,
+    .sidebar {
+      width: auto;
+      min-width: 0;
+    }
+
+    .calendar-card,
+    .todo-card,
+    .add-todo,
+    .action-card,
+    .stats-card,
+    .week-stats-card,
+    .timeline-card,
+    .modal {
+      background: var(--paper-card);
+      border: 1px solid rgba(221,229,241,0.92);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(14px);
+    }
+
+    .calendar-card,
+    .todo-card,
+    .add-todo,
+    .action-card,
+    .stats-card,
+    .week-stats-card,
+    .timeline-card {
+      overflow: hidden;
+    }
+
+    .calendar-card {
+      padding: 22px;
+      border-radius: 22px;
+    }
+
+    .calendar-header {
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .calendar-month {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .calendar-weekday {
+      color: #9AA4B5;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .calendar-days {
+      gap: 8px 0;
+    }
+
+    .calendar-day-wrapper {
+      gap: 4px;
+    }
+
+    .calendar-day-circle {
+      width: 34px;
+      height: 34px;
+      background: #F2F5FA;
+      border: 1px solid transparent;
+    }
+
+    .calendar-day-circle:hover {
+      background: #EAF2FF;
+      border-color: rgba(37,99,235,0.22);
+      transform: translateY(-1px);
+    }
+
+    .calendar-day-circle.has-record {
+      background: var(--surface-strong);
+      box-shadow: 0 10px 22px rgba(15,23,42,0.18);
+    }
+
+    .calendar-day-wrapper.has-record .calendar-day-num {
+      color: var(--surface-strong);
+    }
+
+    .calendar-day-circle.today {
+      background: linear-gradient(135deg, #2563EB, #14B8A6);
+      box-shadow: 0 12px 24px rgba(37,99,235,0.24);
+    }
+
+    .calendar-day-wrapper.today .calendar-day-num {
+      color: var(--terracotta);
+    }
+
+    .todo-section {
+      min-width: 0;
+    }
+
+    .todo-card {
+      border-radius: 22px;
+      padding: 0 0 8px;
+      margin-bottom: 16px;
+    }
+
+    .section-header {
+      padding: 18px 22px 16px;
+      background:
+        linear-gradient(90deg, rgba(37,99,235,0.08), rgba(20,184,166,0.06) 58%, transparent);
+      border-bottom-color: var(--border-light);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--surface-strong);
+    }
+
+    .todo-count {
+      background: #FFFFFF;
+      color: var(--terracotta);
+      border: 1px solid rgba(37,99,235,0.18);
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .sort-btn,
+    .manage-projects-btn,
+    .manage-templates-btn {
+      font-family: inherit;
+      background: #FFFFFF;
+      border-color: var(--border);
+      color: var(--ink-light);
+    }
+
+    .sort-btn:hover,
+    .manage-projects-btn:hover,
+    .manage-templates-btn:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+      background: var(--terracotta-bg);
+    }
+
+    .todo-item {
+      margin: 8px 10px;
+      padding: 14px 16px;
+      border: 1px solid transparent;
+      border-radius: 16px;
+    }
+
+    .todo-item:hover {
+      background: #F8FBFF;
+      border-color: var(--border-light);
+      box-shadow: 0 12px 28px rgba(15,23,42,0.055);
+      transform: translateY(-1px);
+    }
+
+    .todo-item.dragging {
+      background: var(--terracotta-bg);
+      box-shadow: 0 18px 42px rgba(37,99,235,0.16);
+    }
+
+    .todo-item.drag-over {
+      border-top: 2px solid var(--terracotta);
+    }
+
+    .drag-handle {
+      color: #B8C2D2;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border: 1.5px solid #B8C2D2;
+      border-radius: 7px;
+      background: #FFFFFF;
+    }
+
+    .checkbox:hover {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.10);
+    }
+
+    .checkbox.checked {
+      background: linear-gradient(135deg, #2563EB, #14B8A6);
+      border-color: transparent;
+    }
+
+    .todo-text {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--surface-strong);
+      font-weight: 600;
+    }
+
+    .todo-item.completed .todo-text {
+      color: #98A2B3;
+      font-weight: 500;
+    }
+
+    .todo-note {
+      color: #667085;
+      font-style: normal;
+    }
+
+    .todo-tag {
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .tag-project {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+
+    .tag-urgent {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .tag-important {
+      background: var(--clay-bg);
+      color: #B45309;
+    }
+
+    .tag-normal {
+      background: #F2F5FA;
+      color: #667085;
+    }
+
+    .todo-action-btn:hover {
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+    }
+
+    .todo-action-btn.delete:hover,
+    .timeline-delete:hover,
+    .project-item-btn.delete:hover {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .add-todo {
+      padding: 16px;
+      border-radius: 20px;
+    }
+
+    .add-todo-main {
+      gap: 10px;
+    }
+
+    .add-input {
+      height: 44px;
+      border-radius: 14px;
+      font-size: 14px;
+    }
+
+    .add-btn,
+    .btn-primary,
+    .modal-btn.primary,
+    .project-add-btn,
+    .template-add-btn {
+      font-family: inherit;
+      background: linear-gradient(135deg, #2563EB, #14B8A6);
+      color: #FFFFFF;
+      box-shadow: 0 14px 28px rgba(37,99,235,0.22);
+    }
+
+    .add-btn {
+      height: 44px;
+      border-radius: 14px;
+      font-weight: 800;
+    }
+
+    .add-btn:hover,
+    .btn-primary:hover,
+    .modal-btn.primary:hover,
+    .project-add-btn:hover,
+    .template-add-btn:hover {
+      background: linear-gradient(135deg, #1D4ED8, #0F766E);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(37,99,235,0.26);
+    }
+
+    .option-select {
+      border-radius: 11px;
+    }
+
+    .template-bar {
+      margin-top: 2px;
+    }
+
+    .template-chip {
+      height: 30px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--ink-light);
+      font-family: inherit;
+    }
+
+    .template-chip:hover {
+      background: #EAF2FF;
+      border-color: rgba(37,99,235,0.28);
+      color: var(--terracotta);
+      transform: translateY(-1px);
+    }
+
+    .sidebar {
+      gap: 14px;
+    }
+
+    .action-card,
+    .stats-card,
+    .week-stats-card,
+    .timeline-card {
+      padding: 18px;
+      border-radius: 20px;
+    }
+
+    .action-card {
+      background:
+        linear-gradient(180deg, rgba(15,23,42,0.98), rgba(30,41,59,0.96));
+      border-color: rgba(255,255,255,0.08);
+      color: #FFFFFF;
+      box-shadow: 0 22px 46px rgba(15,23,42,0.22);
+    }
+
+    .action-card-title {
+      color: #FFFFFF;
+      font-weight: 800;
+    }
+
+    .btn-primary {
+      height: 44px;
+      border-radius: 14px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .btn-secondary,
+    .modal-btn.secondary {
+      font-family: inherit;
+      background: rgba(255,255,255,0.92);
+      border-color: var(--border);
+      color: var(--ink-light);
+    }
+
+    .action-card .btn-secondary {
+      color: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .btn-secondary:hover,
+    .modal-btn.secondary:hover {
+      background: var(--terracotta-bg);
+      border-color: rgba(37,99,235,0.26);
+      color: var(--terracotta);
+    }
+
+    .action-card .btn-secondary:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.26);
+      color: #FFFFFF;
+    }
+
+    .stats-title,
+    .week-stats-title,
+    .timeline-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--surface-strong);
+    }
+
+    .stats-row {
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #F8FBFF;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+    }
+
+    .stats-value {
+      font-size: 28px;
+      font-weight: 850;
+      color: var(--terracotta);
+    }
+
+    .stats-value .unit {
+      font-family: inherit;
+      color: #98A2B3;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #EEF4FF;
+      border-radius: 999px;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #2563EB, #14B8A6);
+      border-radius: 999px;
+    }
+
+    .week-chart {
+      height: 78px;
+    }
+
+    .week-bar {
+      background: #EEF4FF;
+      border-radius: 999px 999px 4px 4px;
+      overflow: hidden;
+    }
+
+    .week-bar-fill {
+      background: linear-gradient(180deg, #14B8A6, #2563EB);
+      border-radius: 999px 999px 4px 4px;
+    }
+
+    .week-summary {
+      gap: 8px;
+      border-top: none;
+      padding-top: 8px;
+    }
+
+    .week-summary-item {
+      flex: 1;
+      padding: 10px 6px;
+      background: #F8FBFF;
+      border: 1px solid var(--border-light);
+      border-radius: 13px;
+    }
+
+    .week-summary-value {
+      font-size: 18px;
+      color: var(--surface-strong);
+    }
+
+    .timeline-list {
+      gap: 10px;
+    }
+
+    .timeline-dot {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7);
+    }
+
+    .timeline-dot.add {
+      background: #EAF2FF;
+    }
+
+    .timeline-dot.complete {
+      background: #E8FBF8;
+    }
+
+    .timeline-dot.edit {
+      background: #FFF7E6;
+    }
+
+    .timeline-item::before {
+      background: #E6EDF7;
+    }
+
+    .timeline-text {
+      color: var(--ink-light);
+    }
+
+    .timeline-toggle {
+      color: var(--terracotta);
+      font-weight: 800;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      background: rgba(15,23,42,0.30);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 2000;
+    }
+
+    .modal {
+      border-radius: 22px;
+    }
+
+    .modal-title {
+      font-weight: 850;
+    }
+
+    .report-preview {
+      background: #F8FBFF;
+      border-color: var(--border);
+      border-radius: 16px;
+      font-size: 14px;
+      color: var(--surface-strong);
+    }
+
+    .project-item,
+    .template-item {
+      background: #F8FBFF;
+      border: 1px solid var(--border-light);
+    }
+
+    .project-item:hover,
+    .template-item:hover {
+      background: #EAF2FF;
+    }
+
+    .project-item-name .dot {
+      background: linear-gradient(135deg, #2563EB, #14B8A6);
+    }
+
+    .empty-state {
+      color: #98A2B3;
+    }
+
+    .empty-state .empty-text {
+      font-style: normal;
+    }
+
+    .divider {
+      background: var(--border-light);
+      margin: 0 14px;
+    }
+
+    .toast {
+      background: var(--surface-strong);
+      color: #FFFFFF;
+      border-radius: 999px;
+      font-family: inherit;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.24);
+    }
+
+    @media (max-width: 1120px) {
+      .main-container {
+        grid-template-columns: 250px minmax(440px, 1fr);
+      }
+
+      .sidebar {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .timeline-card {
+        grid-column: span 3;
+      }
+    }
+
+    /* ========== v1.14.1 Frontend-design polish ========== */
+    ::selection {
+      background: rgba(37,99,235,0.18);
+      color: var(--surface-strong);
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(37,99,235,0.28) transparent;
+    }
+
+    *::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background: rgba(37,99,235,0.26);
+      border-radius: 999px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .top-bar {
+      isolation: isolate;
+    }
+
+    .top-bar::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: -1px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(37,99,235,0.62), rgba(20,184,166,0.56), transparent);
+      z-index: -1;
+    }
+
+    .logo-icon {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::after {
+      content: "";
+      position: absolute;
+      inset: -45%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,0.55), transparent 65%);
+      transform: translateX(-80%) rotate(18deg);
+      animation: logoSheen 4.8s ease-in-out infinite;
+    }
+
+    @keyframes logoSheen {
+      0%, 54%, 100% { transform: translateX(-82%) rotate(18deg); }
+      70% { transform: translateX(82%) rotate(18deg); }
+    }
+
+    .main-container {
+      align-items: start;
+    }
+
+    .calendar-section,
+    .sidebar {
+      position: sticky;
+      top: 92px;
+      align-self: start;
+    }
+
+    .calendar-card,
+    .todo-card,
+    .add-todo,
+    .action-card,
+    .stats-card,
+    .week-stats-card,
+    .timeline-card {
+      position: relative;
+    }
+
+    .calendar-card::before,
+    .todo-card::before,
+    .stats-card::before,
+    .week-stats-card::before,
+    .timeline-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.88), transparent 32%),
+        linear-gradient(315deg, rgba(37,99,235,0.08), transparent 42%);
+      opacity: 0.9;
+    }
+
+    .calendar-card > *,
+    .todo-card > *,
+    .add-todo > *,
+    .action-card > *,
+    .stats-card > *,
+    .week-stats-card > *,
+    .timeline-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .calendar-card {
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 18px 42px rgba(15,23,42,0.055);
+    }
+
+    .todo-card {
+      min-height: 360px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 24px 56px rgba(15,23,42,0.065);
+    }
+
+    .todo-card::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 0;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563EB, #14B8A6, #F59E0B);
+      opacity: 0.9;
+    }
+
+    .section-header {
+      min-height: 66px;
+    }
+
+    .section-title .icon,
+    .stats-title span:first-child,
+    .week-stats-title span:first-child,
+    .timeline-title span:first-child,
+    .action-card-title span:first-child,
+    .modal-title span:first-child {
+      filter: saturate(1.16);
+    }
+
+    .calendar-day-circle {
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .calendar-day-circle.has-record:hover,
+    .calendar-day-circle.today:hover {
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .calendar-day-circle.today {
+      animation: todayGlow 3.2s ease-in-out infinite;
+    }
+
+    @keyframes todayGlow {
+      0%, 100% { box-shadow: 0 12px 24px rgba(37,99,235,0.24); }
+      50% { box-shadow: 0 16px 32px rgba(20,184,166,0.28); }
+    }
+
+    .todo-list {
+      position: relative;
+    }
+
+    .todo-item {
+      background: rgba(255,255,255,0.42);
+      backdrop-filter: blur(6px);
+    }
+
+    .todo-item::before {
+      content: "";
+      width: 3px;
+      align-self: stretch;
+      border-radius: 999px;
+      background: transparent;
+      margin: 2px 0;
+      order: -1;
+    }
+
+    .todo-item:has(.tag-urgent)::before {
+      background: #EF4444;
+    }
+
+    .todo-item:has(.tag-important)::before {
+      background: #F59E0B;
+    }
+
+    .todo-item:has(.tag-project):not(:has(.tag-urgent)):not(:has(.tag-important))::before {
+      background: #2563EB;
+    }
+
+    .todo-actions {
+      padding-top: 1px;
+    }
+
+    .add-todo {
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 18px 42px rgba(37,99,235,0.065);
+    }
+
+    .add-input {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .add-input:focus {
+      transform: translateY(-1px);
+    }
+
+    .option-select:hover,
+    .manage-projects-btn:hover,
+    .template-chip:hover,
+    .manage-templates-btn:hover {
+      box-shadow: 0 8px 18px rgba(37,99,235,0.08);
+    }
+
+    .action-card {
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .action-card::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      right: -82px;
+      top: -76px;
+      background: radial-gradient(circle, rgba(20,184,166,0.46), transparent 64%);
+      z-index: 0;
+    }
+
+    .action-card::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent);
+      z-index: 0;
+    }
+
+    .action-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .modal-btn,
+    .add-btn,
+    .template-btn,
+    .date-btn,
+    .calendar-nav-btn,
+    .sort-btn,
+    .manage-projects-btn,
+    .manage-templates-btn,
+    .template-chip,
+    .todo-action-btn,
+    .timeline-delete,
+    .project-item-btn {
+      will-change: transform;
+    }
+
+    .btn-primary:active,
+    .btn-secondary:active,
+    .modal-btn:active,
+    .add-btn:active,
+    .template-btn:active,
+    .date-btn:active,
+    .calendar-nav-btn:active {
+      transform: translateY(0) scale(0.985);
+    }
+
+    .stats-card,
+    .week-stats-card,
+    .timeline-card {
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 18px 40px rgba(15,23,42,0.052);
+    }
+
+    .stats-card:hover,
+    .week-stats-card:hover,
+    .timeline-card:hover,
+    .calendar-card:hover,
+    .add-todo:hover {
+      border-color: rgba(37,99,235,0.20);
+      transform: translateY(-1px);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .stats-row {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .progress-fill,
+    .week-bar-fill {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after,
+    .week-bar-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.34), transparent);
+      transform: translateX(-100%);
+      animation: barSheen 3.6s ease-in-out infinite;
+    }
+
+    @keyframes barSheen {
+      0%, 55%, 100% { transform: translateX(-110%); }
+      72% { transform: translateX(110%); }
+    }
+
+    .week-summary-label,
+    .stats-label,
+    .progress-text,
+    .timeline-time {
+      color: #7B8798;
+    }
+
+    .timeline-item {
+      padding: 2px 0;
+    }
+
+    .timeline-dot {
+      border: 1px solid rgba(221,229,241,0.9);
+    }
+
+    .modal {
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 32px 90px rgba(15,23,42,0.28);
+    }
+
+    .modal-header {
+      padding-top: 22px;
+    }
+
+    .report-preview,
+    .note-textarea {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .project-add-row,
+    .template-add-row {
+      border-top-color: var(--border-light);
+    }
+
+    .empty-state {
+      background:
+        linear-gradient(180deg, rgba(248,251,255,0.72), rgba(255,255,255,0));
+      border-radius: 16px;
+      margin: 8px 10px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
@@ -1537,7 +2828,7 @@
     </div>
 
     <div class="top-bar-right">
-      <button class="template-btn">⚡ 快捷模板</button>
+      <button class="template-btn" id="topTemplateBtn">⚡ 快捷模板</button>
     </div>
   </header>
 
@@ -1618,6 +2909,7 @@
           <span>⚡</span> 快捷操作
         </div>
         <button class="btn-primary" id="generateReport">📄 生成日报</button>
+        <button class="btn-secondary" id="carryTomorrow" style="margin-bottom: 10px;">⏭ 顺延到明日</button>
         <button class="btn-secondary" id="exportData">💾 导出备份</button>
         <button class="btn-secondary" id="importData" style="margin-top: 8px;">📂 导入恢复</button>
         <input type="file" id="importFile" accept=".json" style="display: none;">
@@ -1775,7 +3067,7 @@
     }
 
     // 创建Todo对象
-    function createTodo(text, project = '', priority = 'normal') {
+    function createTodo(text, project = '', priority = 'normal', extra = {}) {
       return {
         id: generateId(),
         text: text,
@@ -1784,7 +3076,11 @@
         priority: priority, // urgent | important | normal
         note: '',
         createdAt: new Date().toISOString(),
-        completedAt: null
+        completedAt: null,
+        carriedFrom: '',
+        sourceTodoId: '',
+        carriedAt: '',
+        ...extra
       };
     }
 
@@ -1899,6 +3195,87 @@
 
       saveData(data);
       return todo;
+    }
+
+    function getTomorrowDateStr(date) {
+      const tomorrow = new Date(date);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return formatDate(tomorrow);
+    }
+
+    function formatShortDateLabel(dateStr) {
+      const date = new Date(dateStr + 'T00:00:00');
+      return `${date.getMonth() + 1}月${date.getDate()}日`;
+    }
+
+    function getCarriedLabel(todo) {
+      if (!todo || !todo.carriedFrom) return '';
+      return `顺延自 ${formatShortDateLabel(todo.carriedFrom)}`;
+    }
+
+    function carryUnfinishedTodosToTomorrow() {
+      const dateStr = formatDate(currentDate);
+      const tomorrowStr = getTomorrowDateStr(currentDate);
+      const data = loadData();
+      const sourceTodos = data.todos[dateStr] || [];
+      const unfinishedTodos = sourceTodos.filter(todo => !todo.completed);
+
+      if (unfinishedTodos.length === 0) {
+        showToast('今天没有需要顺延的未完成待办');
+        return { carriedCount: 0, skippedCount: 0, targetDate: tomorrowStr };
+      }
+
+      if (!data.todos[tomorrowStr]) {
+        data.todos[tomorrowStr] = [];
+      }
+
+      const existingKeys = new Set(
+        data.todos[tomorrowStr].map(todo => `${todo.carriedFrom || ''}::${todo.sourceTodoId || ''}`)
+      );
+      const now = new Date().toISOString();
+      let carriedCount = 0;
+      let skippedCount = 0;
+
+      unfinishedTodos.forEach(todo => {
+        const key = `${dateStr}::${todo.id}`;
+        if (existingKeys.has(key)) {
+          skippedCount++;
+          return;
+        }
+
+        data.todos[tomorrowStr].push({
+          ...todo,
+          id: generateId(),
+          completed: false,
+          completedAt: null,
+          createdAt: now,
+          carriedFrom: dateStr,
+          sourceTodoId: todo.id,
+          carriedAt: now
+        });
+        existingKeys.add(key);
+        carriedCount++;
+      });
+
+      if (carriedCount === 0) {
+        showToast('未完成待办已顺延过明日');
+        return { carriedCount, skippedCount, targetDate: tomorrowStr };
+      }
+
+      if (!data.timeline[dateStr]) {
+        data.timeline[dateStr] = [];
+      }
+      data.timeline[dateStr].push(
+        createTimelineEvent('carry', '', `顺延 ${carriedCount} 项未完成待办到 ${formatShortDateLabel(tomorrowStr)}`)
+      );
+
+      saveData(data);
+      renderCalendar();
+      renderTimeline();
+      renderWeekStats();
+      renderTodoList();
+      showToast(`已顺延 ${carriedCount} 项到明日`);
+      return { carriedCount, skippedCount, targetDate: tomorrowStr };
     }
 
     // 切换待办完成状态
@@ -2040,33 +3417,37 @@
         return;
       }
 
-      todoList.innerHTML = sortedTodos.map(todo => `
-        <div class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}" draggable="true">
-          <div class="drag-handle" title="拖拽排序">⠿</div>
-          <div class="checkbox ${todo.completed ? 'checked' : ''}" data-id="${todo.id}"></div>
-          <div class="todo-content">
-            <div class="todo-text">${escapeHtml(todo.text)}</div>
-            ${todo.project || todo.priority !== 'normal' ? `
-              <div class="todo-meta">
-                ${todo.project ? `<span class="todo-tag tag-project">${escapeHtml(todo.project)}</span>` : ''}
-                ${todo.priority === 'urgent' ? '<span class="todo-tag tag-urgent">紧急</span>' : ''}
-                ${todo.priority === 'important' ? '<span class="todo-tag tag-important">重要</span>' : ''}
-              </div>
-            ` : ''}
-            ${todo.note ? `
-              <div class="todo-note">
-                <span class="note-icon">📝</span>
-                ${escapeHtml(todo.note)}
-              </div>
-            ` : ''}
+      todoList.innerHTML = sortedTodos.map(todo => {
+        const carriedLabel = getCarriedLabel(todo);
+        return `
+          <div class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}" draggable="true">
+            <div class="drag-handle" title="拖拽排序">⠿</div>
+            <div class="checkbox ${todo.completed ? 'checked' : ''}" data-id="${todo.id}"></div>
+            <div class="todo-content">
+              <div class="todo-text">${escapeHtml(todo.text)}</div>
+              ${todo.project || todo.priority !== 'normal' || carriedLabel ? `
+                <div class="todo-meta">
+                  ${todo.project ? `<span class="todo-tag tag-project">${escapeHtml(todo.project)}</span>` : ''}
+                  ${todo.priority === 'urgent' ? '<span class="todo-tag tag-urgent">紧急</span>' : ''}
+                  ${todo.priority === 'important' ? '<span class="todo-tag tag-important">重要</span>' : ''}
+                  ${carriedLabel ? `<span class="todo-tag tag-carried">${escapeHtml(carriedLabel)}</span>` : ''}
+                </div>
+              ` : ''}
+              ${todo.note ? `
+                <div class="todo-note">
+                  <span class="note-icon">📝</span>
+                  ${escapeHtml(todo.note)}
+                </div>
+              ` : ''}
+            </div>
+            <div class="todo-actions">
+              <button class="todo-action-btn" title="备注" data-action="note" data-id="${todo.id}">📝</button>
+              <button class="todo-action-btn delete" title="删除" data-action="delete" data-id="${todo.id}">✕</button>
+            </div>
           </div>
-          <div class="todo-actions">
-            <button class="todo-action-btn" title="备注" data-action="note" data-id="${todo.id}">📝</button>
-            <button class="todo-action-btn delete" title="删除" data-action="delete" data-id="${todo.id}">✕</button>
-          </div>
-        </div>
-        <div class="divider"></div>
-      `).join('');
+          <div class="divider"></div>
+        `;
+      }).join('');
 
       // 更新统计
       updateStats(todos);
@@ -2271,6 +3652,9 @@
         } else if (event.type === 'delete') {
           dotClass = 'edit';
           icon = '🗑️';
+        } else if (event.type === 'carry') {
+          dotClass = 'edit';
+          icon = '⏭';
         }
 
         return `
@@ -3024,6 +4408,12 @@
       });
     }
 
+    function initCarryoverEvents() {
+      const carryBtn = document.getElementById('carryTomorrow');
+      if (!carryBtn) return;
+      carryBtn.addEventListener('click', carryUnfinishedTodosToTomorrow);
+    }
+
     // ==================== 快捷模板
     function renderTemplateBar() {
       const templates = getTemplates();
@@ -3067,6 +4457,14 @@
       const closeBtn = document.getElementById('closeTemplateModal');
       const addBtn = document.getElementById('addTemplateBtn');
       const list = document.getElementById('templateList');
+      const topTemplateBtn = document.getElementById('topTemplateBtn');
+
+      function openTemplateModal() {
+        renderTemplateList();
+        modal.classList.add('active');
+      }
+
+      topTemplateBtn.addEventListener('click', openTemplateModal);
 
       // 点击模板chip → 填入输入框
       bar.addEventListener('click', (e) => {
@@ -3079,8 +4477,7 @@
         }
 
         if (e.target.id === 'manageTemplatesBtn' || e.target.closest('#manageTemplatesBtn')) {
-          renderTemplateList();
-          modal.classList.add('active');
+          openTemplateModal();
         }
       });
 
@@ -3268,6 +4665,7 @@
 
       todoList.innerHTML = results.map(todo => {
         const dateLabel = formatDateChinese(todo.dateStr);
+        const carriedLabel = getCarriedLabel(todo);
         return `
           <div class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}">
             <div class="checkbox ${todo.completed ? 'checked' : ''}" data-id="${todo.id}"></div>
@@ -3278,6 +4676,7 @@
                 ${todo.project ? `<span class="todo-tag tag-project">${highlightText(todo.project, searchQuery)}</span>` : ''}
                 ${todo.priority === 'urgent' ? '<span class="todo-tag tag-urgent">紧急</span>' : ''}
                 ${todo.priority === 'important' ? '<span class="todo-tag tag-important">重要</span>' : ''}
+                ${carriedLabel ? `<span class="todo-tag tag-carried">${escapeHtml(carriedLabel)}</span>` : ''}
               </div>
               ${todo.note ? `
                 <div class="todo-note">
@@ -3371,11 +4770,12 @@
       initSearchEvents();
       initTemplateEvents();
       initTimelineEvents();
+      initCarryoverEvents();
       initDragDropEvents();
       checkBackupReminder();
     }
 
-    console.log('DailyFlow v1.13 初始化完成');
+    console.log('DailyFlow v1.15 初始化完成');
   </script>
 
 </body>
